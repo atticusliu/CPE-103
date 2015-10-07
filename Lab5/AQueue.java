@@ -37,7 +37,7 @@ public class AQueue<T>
 
    public void enqueue(T value)
    {
-      count++;
+
       //check to see if array is big enough
       //if count is greater than the length of arrlength than double the size
       if (count == arr.length)
@@ -60,12 +60,12 @@ public class AQueue<T>
          end = (end+1)% arr.length;
          arr[end] = value;
       }
-      else
-      {
+      else {
          //end represents the index where we are adding the value to
-         end = (end + 1)% arr.length;
+         end = (end + 1) % arr.length;
          arr[end] = value;
       }
+      count++;
    }
 
    public T dequeue()
