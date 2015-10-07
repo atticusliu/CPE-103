@@ -34,7 +34,7 @@ public class AQueueDriver
                      //skips whatever else is on the line and the enter key
                      sc.nextLine();
                      que.enqueue(temp);
-                     System.out.println(temp + "enqueued");
+                     System.out.println(temp + " enqueued");
                   }
                   else
                   {
@@ -48,14 +48,18 @@ public class AQueueDriver
                      System.out.println("Que is empty.");
                   }
                   else
-                     System.out.println(que.dequeue() + "dequeued");
+                     System.out.println(que.dequeue() + " dequeued");
                   }
                   break;
                case 'e':
                   if (que.isEmpty())
+		  {
                      System.out.println("The queue is empty.");
+	          }
                   else
+		  {
                      System.out.println("The queue is NOT empty.");
+		  }
                   break;
                case 'p':
                   que.printArray();
