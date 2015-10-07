@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class LQueueDriver
+{
+   public static void main(String[] args)
+   {
+      Scanner sc = new Scanner(System.in);
+      LQueue<Integer> que = new LQueue<Integer>();
+
+      System.out.println("Choose one of the following operations: ");
+      System.out.println("-   enqueue/add (enter the letter a)");
+      System.out.println("-   dequeue/delete (enter the letter d)");
+      System.out.println("-   check if the list is empty (enter the letter e)");
+      System.out.println("-   quit (enter the letter q)");
+
+      while (!in.equals("q"))
+      {
+         
+      }
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+}
