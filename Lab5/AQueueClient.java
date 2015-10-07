@@ -6,7 +6,6 @@ public class AQueueClient
 
    public static boolean isFloat(String s)
    {
-      boolean isInt = false;
       try
       {
          //Integer.parseInt(s);

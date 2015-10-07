@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5967d7fc-06ba-484c-be68-fdd66fb1c7b5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueue$MyException.class" afterPath="$PROJECT_DIR$/AQueue$MyException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueue.class" afterPath="$PROJECT_DIR$/AQueue.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueueClient.class" afterPath="$PROJECT_DIR$/AQueueClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueueDriver.class" afterPath="$PROJECT_DIR$/AQueueDriver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueue.java" afterPath="$PROJECT_DIR$/AQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AQueueClient.java" afterPath="$PROJECT_DIR$/AQueueClient.java" />
     </list>
     <ignored path="Lab5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +26,8 @@
       <file leaf-file-name="AQueueClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AQueueClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35856575">
-              <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.7808765">
+              <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -73,6 +69,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/AQueue.java" />
+        <option value="$PROJECT_DIR$/AQueueClient.java" />
       </list>
     </option>
   </component>
@@ -407,8 +404,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AQueueClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35856575">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.7808765">
+          <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
