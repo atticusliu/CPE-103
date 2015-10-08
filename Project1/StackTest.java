@@ -29,7 +29,7 @@ public class StackTest
                   if (sc.hasNext())
                   {
                      String input = sc.nextLine();
-                     sc.nextLine();
+                     //sc.nextLine();
                      s.push(input);
                      System.out.println(input + " pushed in.");
                   }
