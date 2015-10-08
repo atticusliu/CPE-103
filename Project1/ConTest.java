@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class ConTest {
     public static void main(String[] args)
     {
@@ -9,6 +11,7 @@ public class ConTest {
         System.out.println("-Arithmetic expression evaluation (enter the letter a)");
         System.out.println("-Quit the program (enter the letter q");
 
-
+        String temp = "a + b * c + (d * e + f) * g";
+        System.out.println(Converter.infixToPostfix(temp));
     }
 }

@@ -3,34 +3,32 @@ import java.util.*;
 public class Converter
 {
 
-    // determine precedence
-    private static int precedence(String operand)
+    private static boolean isOperator(String str)
     {
-        int ret = 0;
-        switch(operand)
-        {
-
-            case "*":
-                ret = 1;
-                break;
-            case "/":
-                ret = 1;
-                break;
-            case "+":
-                ret = 2;
-                break;
-            case "-":
-                ret = 2;
-                break;
-            case "(":
-                ret = 3;
-                break;
-            case ")":
-                ret = 3;
-                break;
-        }
-        return ret;
+        return str == "*" || str == "/" || str == "+" || str == "-" ||
+               str == "(" || str == ")";
     }
+
+    private static boolean precedence(String oper1, String oper2)
+    {
+        switch (oper1)
+        {
+            case "*:
+                return !(oper2 == '+' || oper2 == '-');
+            case "/:
+                return oper2 == '(';
+
+            case "+":
+                return !(oper2 == '+' || oper2 == '-');
+            case "-":
+                return !(oper2 == '+' || oper2 == '-');
+            case '(':
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
 
 
@@ -45,8 +43,40 @@ public class Converter
         int count = 0;
         while(count < temp.length)
         {
-            if(temp[count].equals("*") || temp[count].equals("/") || temp[count].equals("+") ||
-               temp[count].equals("-") || temp[count].equals("(") || temp[count].equals(")"))
+            // add to stack if operator
+            if(isOperator(temp[count]))
+            {
+                output = output + temp[count] + " ";
+            }
+            else
+            {
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
+            if(!(temp[count].equals("*") || temp[count].equals("/") || temp[count].equals("+") ||
+               temp[count].equals("-") || temp[count].equals("(") || temp[count].equals(")")))
+            {
+                output = output + temp[count] + " ";
+            }
+            if((temp[count].equals("*") || temp[count].equals("/") || temp[count].equals("+") ||
+                    temp[count].equals("-") || temp[count].equals("(") || temp[count].equals(")")))
             {
                 // if what's read has lower precedence, do nothing. Else, pop it
                 if(s.isEmpty())
@@ -87,6 +117,7 @@ public class Converter
                 output = output + temp[count] + " ";
             }
             count++;
+            */
         }
         return output;
     }
