@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.NoSuchElementException;
 
 public class StringChecker
 {
@@ -8,12 +9,13 @@ public class StringChecker
         int i = 0;
         while (i < s.length())
         {
-            if (s.charAt(i) == ' ')
-                i++;
-            else if(s.charAt(i) == '{' || s.charAt(i) == '[' || s.charAt(i) == '(')
+            //if (s.charAt(i) == ' ')
+            //    i++;
+            if(s.charAt(i) == '{' || s.charAt(i) == '[' || s.charAt(i) == '(')
             {
                 stringStack.push(s.charAt(i));
-                i++;
+                //System.out.println(stringStack.peek());
+                //i++;
             }
             else if (s.charAt(i) == '}' || s.charAt(i) == ']' || s.charAt(i) == ')')
             {
@@ -21,18 +23,15 @@ public class StringChecker
                     return false;
                 else
                 {
-                    if (s.charAt(i) == '{' && stringStack.pop() == '}')
-                        i++;
-                    else if (s.charAt(i) == '[' && stringStack.pop() == ']')
-                        i++;
-                    else if (s.charAt(i) == '(' && stringStack.pop() == ')')
-                        i++;
-                    else
+                    if (s.charAt(i) == '}' && stringStack.pop() != '{')
+                        return false;
+                    else if (s.charAt(i) == ']' && stringStack.pop() != '[')
+                        return false;
+                    else if (s.charAt(i) == ')' && stringStack.pop() != '(')
                         return false;
                 }
             }
-            else
-                i++;
+            i++;
         }
         if (stringStack.isEmpty())
             return true;
@@ -42,8 +41,28 @@ public class StringChecker
 
     public static void main(String[] args)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a string");
-        sc.nextLine();
+        boolean cond = true;
+
+
+        while(cond) {
+
+
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter a string");
+            String input = "";
+            try {
+                input = sc.nextLine();
+            }
+            catch (NoSuchElementException e)
+            {
+                System.out.println("End program");
+                break;
+            }
+            if (isBalanced(input)) {
+                System.out.println("Input is balanced.");
+            } else {
+                System.out.println("Input is not balanced.");
+            }
+        }
     }
 }
