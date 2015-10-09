@@ -2,6 +2,7 @@
  * @authors: Salonee Thanawala, Atticus Liu
  * @usernames: sthanawala@calpoly.edu, aliu44@calpoly.edu
  * CPE103-03
+ * 8 October 2015
  * Project 1
  */
 
@@ -79,12 +80,12 @@ public class StackTest
                   }
                   else
                   {
-                     System.out.println("not empty.");
+                     System.out.println("Stack is not empty.");
                   }
                   break;
                case 'q':
                   cond = false;
-                  System.out.println("quitting");
+                  System.out.println("Farewell.");
                   break;
                default:
                   System.out.println("Invalid menu choice");

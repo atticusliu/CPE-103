@@ -2,6 +2,7 @@
  * @authors: Salonee Thanawala, Atticus Liu
  * @usernames: sthanawala@calpoly.edu, aliu44@calpoly.edu
  * CPE103-03
+ * 8 October 2015
  * Project 1
  */
 
@@ -25,11 +26,14 @@ public class Converter
         // ret is also value of "+" and "-"
         int ret = 0;
 
-        if(op == "/" || op == "*")
+        // "/" and "*" get next precedence
+        if(op.equals("/") || op.equals("*"))
         {
             ret = 1;
         }
-        if(op == "(" || op == ")")
+
+        // parentheses are exceptions to precedence rules, assigned -1
+        if(op.equals("(") || op.equals(")"))
         {
             ret = -1;
         }
@@ -48,6 +52,7 @@ public class Converter
 
         // "temp" is a new array to hold "expression" without whitespaces
         // allows for easy access to each value formerly in expression
+        // 50 is an arbitrary number
         String[] temp = new String[50];
 
         // splitting by whitespaces, storing in temp
@@ -65,45 +70,76 @@ public class Converter
             }
             else
             {
-                // if stack is empty, push
-                if(opStack.isEmpty())
-                {
-                    opStack.push(temp[count]);
-                }
                 if(temp[count].equals("("))
                 {
                     opStack.push(temp[count]);
                 }
-                while(!temp[count].equals(")"))
+
+                // if stack is empty, push
+                else if(!opStack.isEmpty() && temp[count].equals(")"))
                 {
-                    output = output + opStack.pop() + " ";
+                    //opStack.push(temp[count]);
+                    while (!opStack.isEmpty() && !opStack.peek().equals("(")) {
+                            output = output + opStack.pop() + " ";
+                    }
+
+                    // to pop "("
+                    if(!opStack.isEmpty())
+                    {
+                        System.out.println(opStack.pop());
+                    }
+
                 }
-                if(!opStack.isEmpty())
+
+
+                // pop "("
+
+                if(!opStack.isEmpty() && opStack.peek().equals("("))
                 {
                     opStack.pop();
                 }
 
+
                 // curPrec is precedence value of the current value
                 int curPrec = getPrecedence(temp[count]);
 
+                //System.out.println(temp[count]);
+                int peekPrec;
                 // peekPrec is precedence value of value at top of stack (peek())
-                int peekPrec = getPrecedence(opStack.peek());
 
-                while(peekPrec >= curPrec)
+                if(!opStack.isEmpty())
+                {
+                    peekPrec = getPrecedence(opStack.peek());
+                }
+                else
+                {
+                    peekPrec = -10;
+                }
+
+                while(!opStack.isEmpty() && peekPrec >= curPrec)
                 {
                     output = output + opStack.pop() + " ";
+                    //opStack.pop();
                 }
-                opStack.push(temp[count]);
+
+                // push whatever operator
+                if(!temp[count].equals(")"))
+                {
+                    opStack.push(temp[count]);
+                }
+
             }
             // increment count
             count++;
         }
         // empty rest of opStack
         while(!opStack.isEmpty()) {
-            output = output + temp[count] + " ";
+            output = output + opStack.pop() + " ";
         }
         return output;
     }
+
+
 
     //returning a double given a postfix
     public static double postfixValue(String expression)
