@@ -1,32 +1,36 @@
-import java.util.*;
 /*
  * @authors: Salonee Thanawala, Atticus Liu
- *
+ * @usernames: sthanawala@calpoly.edu, aliu44@calpoly.edu
  * CPE103-03
+ * 8 October 2015
  * Project 1
  */
 
+import java.util.*;
+
+// defining the stack
 public class MyStack<T>
 {
-   //nested Node class
+   // nested Node class
    private class Node
    {
       public T elem;
       public Node next;
    }
 
-   //instance variable of Node that holds the address of 1st node
+   // instance variable of Node that holds the address of 1st node
    private Node top;
 
-   //constructor - creates empty stack
+   // constructor - creates empty stack
    public MyStack()
    {
       top = null;
    }
    
-   //methods
+   // push method
    public void push(T element)
    {
+      // defining a new Node called temp
       Node temp = new Node();
       temp.elem = element;
       temp.next = top;
@@ -34,10 +38,12 @@ public class MyStack<T>
       
    }
 
+   // pop method
    public T pop()
    {
-      if (!(top == null))
+      if (top != null)
       {
+         // defining a new Node called temp
          Node temp = new Node();
          temp = top;
          top = temp.next;
@@ -47,9 +53,10 @@ public class MyStack<T>
          throw new EmptyStackException();
    }
 
+   // peek method
    public T peek()
    {
-      if (!(top == null))
+      if (top != null)
       {
          return top.elem;
       }
@@ -57,6 +64,7 @@ public class MyStack<T>
          throw new EmptyStackException();
    }
 
+   // isEmpty method
    public boolean isEmpty()
    {
       if (top == null)
