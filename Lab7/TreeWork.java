@@ -7,32 +7,46 @@ public class TreeWork<T extends Comparable<? super T>>
     {
         // default value is true
         boolean ret = true;
+        int lastParent = (N/2) - 1;
+        int secondToLast = N - 2;
+        int lastChild = N - 1;
 
-        // compare leading value (1 out of (0, 1))
-        for(int i = 0; i < Math.floor(Math.log(N) / Math.log(2)); i++)
+        if(N == 1)
         {
-            // parent doesn't advance to next nodes b/c math
-
-            Integer parent = (i - 1) / 2;
-            //Integer parent = (i / 2) - 1;
-            Integer leftChild = (2 * i) + 1;
-            Integer rightChild = (2 * i) + 2;
-
-            System.out.println("Parent: " + arr[parent]);
-            System.out.println("leftChild: " + arr[leftChild]);
-            System.out.println("rightChild: " + arr[rightChild]);
-
-            // prove if ret should be false
-            if(arr[parent].compareTo(arr[leftChild]) > 0)
+            return true;
+        }
+        else if(N <= 3)
+        {
+            lastParent = 0;
+            if(arr[lastChild].compareTo(arr[lastParent]) < 0)
             {
                 ret = false;
             }
-            // check if there's a right child
-            // if not, just skip it
-            if(rightChild <= N - 1)
+            if(arr[secondToLast].compareTo(arr[lastParent]) < 0)
             {
-                if(arr[parent].compareTo(arr[rightChild]) > 0)
-                {
+                ret = false;
+            }
+        }
+
+        lastParent = (N/2) - 1;
+
+        // compare leading value (1 out of (0, 1))
+        for(int i = 0; i < lastParent + 1; i++) {
+            //System.out.println(i);
+            // the parent is i
+            Integer leftChild = (2 * i) + 1;
+            Integer rightChild = (2 * i) + 2;
+
+            // prove if ret should be false
+            // if parent is NOT greater or equal to value of children
+
+            if (arr[leftChild].compareTo(arr[i]) < 0) {
+                ret = false;
+            }
+
+            // check if there's a right child
+            if (N % 2 == 1) {
+                if (arr[rightChild].compareTo(arr[i]) < 0) {
                     ret = false;
                 }
             }
