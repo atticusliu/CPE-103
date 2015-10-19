@@ -10,54 +10,28 @@ public class TreeTest
         Integer[] heapArray = new Integer[20];
         String[] tempArray = new String[20];
         Scanner sc = new Scanner(System.in);
-
+        int count = 0;
         System.out.print("Input: " );
-        while(sc.hasNextLine())
+        while(count < 20 && sc.hasNext()) {
+            heapArray[count] = sc.nextInt();
+            count++;
+        }
+
+        if(count == 0)
         {
-
-            String input = sc.nextLine();
-            try {
-                System.out.println();
-                tempArray = input.split("\\s+");
-
-                int count = 0;
-                try
-                {
-                    while (count < tempArray.length) {
-                        heapArray[count] = Integer.parseInt(tempArray[count]);
-                        count++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    while (count < 20) {
-                        heapArray[count] = Integer.parseInt(tempArray[count]);
-                        count++;
-                    }
-                }
-
-                // in case there are more than 20 elements
-                if(tempArray.length > 20)
-                {
-                    if (TreeWork.isHeap(heapArray, 20))
-                        System.out.println("Heaptest: IS a heap.");
-                    else
-                        System.out.println("Heaptest: is NOT a heap");
-                    TreeWork.printTree(heapArray, 20);
-                }
-                else
-                {
-                    if (TreeWork.isHeap(heapArray, tempArray.length))
-                        System.out.println("Heaptest: IS a heap.");
-                    else
-                        System.out.println("Heaptest: is NOT a heap");
-                    TreeWork.printTree(heapArray, tempArray.length);
-                }
-
-                System.out.print("Input: ");
+            System.out.println();
+            System.out.println("The tree is empty.");
+        }
+        else {
+            if (TreeWork.isHeap(heapArray, count))
+            {
+                System.out.println("IS a heap.");
             }
-            catch (NumberFormatException e) {
-                System.out.println("The tree is empty");
-                System.out.print("Input: ");
+            else
+            {
+                System.out.println("Is NOT a heap.");
             }
+            TreeWork.printTree(heapArray, count);
         }
     }
 }
