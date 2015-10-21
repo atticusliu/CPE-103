@@ -1,77 +1,84 @@
+import java.lang.System;
 import java.util.*;
 
-public class MySortedList
+public class MyListDriver
 {
-    private Node head;
-
-    private class Node
+    public static void main(String[] args)
     {
-        public int ele;
-        public Node next;
-    }
+        Scanner sc = new Scanner(System.in);
+        MySortedList l = new MySortedList();
 
-    public MySortedList()
-    {
-        head = null;
-    }
+        System.out.println("Choose one of the following operations: ");
+        System.out.println("    -add (enter the letter a)");
+        System.out.println("    -delete (enter the letter d)");
+        System.out.println("    -find max (enter the letter x)");
+        System.out.println("    -find min (enter the letter m)");
+        System.out.println("    -print (enter the letter p)");
+        System.out.println("    -is empty (enter the letter e)");
+        System.out.println("    -quit (enter the letter q)");
 
-    // METHODS BELOW
+        //setting condition for loop (as long as the user has not pressed q)
+        boolean cond = true;
+        while(cond) {
+            System.out.println("Enter menu choice: ");
+            String in = sc.nextLine();
 
-    public void add(int item)
-    {
-        boolean done;
-        Node temp;
-        temp.ele = item;
-        // list is empty
-        if(head == null)
-        {
-            head = temp;
-        }
-        // when item is smaller than head.ele
-        else if(item <= head.ele)
-        {
-            // do what's in spec
-        }
-        // general case
-        else
-        {
-            // is there a next, first?
-            Node curr = head;
-            if(curr.next != null)
-            {
-                // do actual comparison
+            if (in.length() == 1) {
+                switch (in.charAt(0)) {
+                    case 'a':
+                        System.out.println("Value: ");
+                        if (sc.hasNextInt()) {
+                            int temp = sc.nextInt();
+                            sc.nextLine();
+                            l.add(temp);
+                            System.out.println(temp + " added.");
+                        } else {
+                            System.out.println("Invalid value for add command.");
+                            sc.nextLine();
+                        }
+                        break;
+                    case 'd':
+                        if (l.isEmpty()) {
+                            System.out.println("List is empty, can't delete anything.");
+                        } else {
+                            System.out.println(l.delete() + " deleted.");
+                        }
+                        break;
+                    case 'x':
+                        if (l.isEmpty()) {
+                            System.out.println("List is empty, can't find max value.");
+                        } else {
+                            System.out.println(l.max() + " is the max value.");
+                        }
+                        break;
+                    case 'm':
+                        if (l.isEmpty()) {
+                            System.out.println("List is empty, can't find min value.");
+                        } else {
+                            System.out.println(l.min() + " is the min value.");
+                        }
+                        break;
+                    case 'p':
+                        l.print();
+                        break;
+                    case 'e':
+                        if (l.isEmpty()) {
+                            System.out.println("List is empty.");
+                        } else {
+                            System.out.println("List is not empty.");
+                        }
+                        break;
+                    case 'q':
+                        cond = false;
+                        System.out.println("Quitting.");
+                        break;
+                    default:
+                        System.out.println("Invalid value");
+                        break;
+                }
+            } else {
+                System.out.println("Invalid menu choice.");
             }
         }
     }
-
-    public void delete(int item)
-    {
-
-    }
-
-    public int max()
-    {
-
-    }
-
-    public int min()
-    {
-
-    }
-
-    public void print()
-    {
-
-    }
-
-    public boolean isEmpty()
-    {
-
-    }
-
-
-
-
-
-
 }
