@@ -41,33 +41,53 @@ public class MySortedList
         else
         {
             curr = head;
-            while(curr.next != null || curr.next.ele >= item)
+            while(curr.next != null)
             {
-                curr = curr.next;
+                if (curr.next.ele < item)
+                    curr = curr.next;
+                else
+                    break;
             }
-            temp = curr.next;
-            temp.next = curr.next.next;
+
+            if (curr.next == null)
+            {
+                curr.next = temp;
+            }
+            else
+            {
+                temp.next = curr.next;
+                curr.next = temp;
+
+                //temp = curr.next;
+                //temp.next = curr.next.next;
+            }
         }
     }
 
     public void delete(int item)
     {
         Node curr; //node pointer
-        curr = head;
+
         if (head!=null)
         {
             if (head.ele == item)
             {
-                head = curr.next;
-                curr = head;
+                head = head.next;
+
             }
-            while (curr.next.ele < item || curr.next != null)
+            else
             {
-                if (curr.next.ele == item)
-                {
+                curr = head;
+                while (curr.next != null && curr.next.ele < item) {
+                       curr = curr.next;
+                   }
+                if (curr.next!= null && curr.next.ele == item) {
                     curr.next = curr.next.next;
                 }
+
             }
+
+
         }
     }
 
@@ -98,6 +118,7 @@ public class MySortedList
             curr = curr.next;
         }
         System.out.print(curr.ele);
+        System.out.println();
     }
 
     public boolean isEmpty()

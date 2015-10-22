@@ -38,10 +38,17 @@ public class MyListDriver
                         }
                         break;
                     case 'd':
-                        if (l.isEmpty()) {
-                            System.out.println("List is empty, can't delete anything.");
-                        } else {
-                            System.out.println(l.delete() + " deleted.");
+                        System.out.println("Value: ");
+                        if (sc.hasNextInt())
+                        {
+                            int del = sc.nextInt();
+                            sc.nextLine();
+                            l.delete(del);
+                            System.out.println( del + " deleted.");
+                        }
+                        else {
+                            System.out.println("Invalid value for add command.");
+                            sc.nextLine();
                         }
                         break;
                     case 'x':
@@ -59,7 +66,15 @@ public class MyListDriver
                         }
                         break;
                     case 'p':
-                        l.print();
+                        if (l.isEmpty())
+                        {
+                            System.out.println("print: ");
+                        }
+                        else
+                        {
+                            System.out.print("print: ");
+                            l.print();
+                        }
                         break;
                     case 'e':
                         if (l.isEmpty()) {
