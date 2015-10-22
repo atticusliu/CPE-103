@@ -6,11 +6,26 @@
  * Project 2
  */
 
+import java.lang.Long;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.io.*;
 
 public class ListPrinter
 {
+    private static boolean isLong(String s)
+    {
+        try
+        {
+            Long.valueOf(s);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
@@ -28,17 +43,33 @@ public class ListPrinter
             // goes until end of file is reached
             while(in.hasNext())
             {
-                // make sure id is greater than 0
-                // make sure there are only 2 values on a line
+                String rawRecord = in.nextLine();
+                String[] recordArray = new String[10];
+                recordArray = rawRecord.split("\\s+");
+                if(isLong(recordArray[0]) && recordArray.length == 2)
+                {
+                    long id = Long.parseLong(recordArray[0]);
+                    String name = recordArray[1];
+                    if(id > 0)
+                    {
+                        // READ SPEC AND GET BACK HERE
+                        // create student object
+                        Student stu = new Student(id, name);
+                        System.out.println(stu.toString());
+                    }
 
-                long tempId = in.nextLong()
-                if(tempId > 0 && )
+                }
+
+
 
             }
 
-        } catch(IOException ex){
+        } catch(IOException ex)
+        {
             System.out.println("Error processing file: " + ex);
         }
 
     }
+
+
 }
