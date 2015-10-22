@@ -37,16 +37,12 @@ public class BinHeap <T extends Comparable<? super T>>
     }
 
 
+    //SOMETHING'S WRONG WITH THE WHILE LOOP WHEN WE ADD THE FOURTH ELEMENT
     public void insert(T item)
     {
-        // check space in array
-        if(size < arr.length)
+        // resize
+        if(size == arr.length -1)
         {
-            insertMethod(item);
-        }
-        else
-        {
-            // resize
             T[] arr1;
             arr1 = (T[]) new Comparable[arr.length*2];
             // mapping to arr1
@@ -57,22 +53,18 @@ public class BinHeap <T extends Comparable<? super T>>
                 c++;
             }
             arr = arr1;
-            insertMethod(item);
         }
-    }
-
-    // does actual insert for when resizing isn't and is necessary
-    private void insertMethod(T item)
-    {
+        // insert method below
         int hole = size;
         int holeParent = (hole-1)/2;
         // while hole is not the root AND hole's parent's value is greater than item
-        while(hole != 0 && arr[holeParent].compareTo(item) > 0)
+        while(hole != 0 && item.compareTo(arr[holeParent]) < 0)
         {
             // copy hole's parent's value into hole location
             arr[hole] = arr[holeParent];
             // set hole to "point" to its parent
             hole = holeParent;
+            System.out.println("HI");
         }
         arr[hole] = item;
         size++;
@@ -80,7 +72,24 @@ public class BinHeap <T extends Comparable<? super T>>
 
     public T deleteMin()
     {
+        if(size == 0)
+        {
+            throw new MyException("Heap is empty.");
+        }
 
+        int hole = 0;
+        T returnValue = arr[hole];
+        T item = arr[size-1];
+        size--;
+        int newhole = newHole(hole, item);
+        while(newhole != -1)
+        {
+            arr[hole] = arr[newhole];
+            hole = newhole;
+            newhole = newHole(hole, item);
+        }
+        arr[hole] = item;
+        return returnValue;
     }
 
     public boolean isEmpty()
@@ -98,6 +107,55 @@ public class BinHeap <T extends Comparable<? super T>>
 
     public String toString()
     {
+        int count = 0;
+        String retString = "";
+        while(count < size)
+        {
+            retString += arr[count] + " ";
+            count++;
+        }
+        return retString;
+    }
 
+    private int newHole(int hole, T item)
+    {
+        int returnIndex = -1;
+        int leftChildIndex = 2*hole + 1;
+        int rightChildIndex = 2*hole + 2;
+
+        if(leftChildIndex < size)
+        {
+            // if there is NO right child
+            if(rightChildIndex != size - 1)
+            {
+                if(item.compareTo(arr[leftChildIndex]) >= 0)
+                {
+                    returnIndex = leftChildIndex;
+                }
+            }
+            // if hole has both children
+            else
+            {
+                // find smaller child
+                if(arr[rightChildIndex].compareTo(arr[leftChildIndex]) < 0)
+                {
+                    // IS THIS COMPARISON CORRECT?
+                    if(item.compareTo(arr[leftChildIndex]) < 0)
+                    {
+                        returnIndex = leftChildIndex;
+                    }
+                }
+                else
+                {
+                    // IS THIS COMPARISON CORRECT?
+                    if(item.compareTo(arr[rightChildIndex]) < 0)
+                    {
+                        returnIndex = rightChildIndex;
+                    }
+                }
+            }
+        }
+        //System.out.println("returnIndex: " + returnIndex);
+        return returnIndex;
     }
 }
