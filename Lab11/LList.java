@@ -53,12 +53,14 @@ public class LList<T>
     //method 2
     public void add(T item)
     {
+
         Node temp = new Node();
         temp.component = item;
         if (head == null)
         {
             head = new Node();
             head.component = item;
+            temp.next = head;
         }
         else
         {
@@ -66,6 +68,7 @@ public class LList<T>
             current = head;
             while (current.next != null)
             {
+                //System.out.println("Hello?");
                 current = current.next;
             }
             current.next = temp;

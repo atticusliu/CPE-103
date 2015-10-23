@@ -37,8 +37,7 @@ public class SeparateAndMerge
         LList<Integer> listInt = new LList<Integer>();
         LList<Float> listFloat = new LList<Float>();
 
-        Iterator<Integer> intItr = listInt.iterator();
-        Iterator<Float> floatItr = listFloat.iterator();
+
 
         Scanner sc = new Scanner(System.in);
         System.out.println("What numbers would you like to input?: ");
@@ -53,29 +52,35 @@ public class SeparateAndMerge
         }
 
         int count2 = 0;
-        while (count2 < input.length)
+        while (count2 < count)
         {
-            if (isFloat(input[count2]))
-            {
-                listFloat.add(Float.parseFloat(input[count2]));
-            }
-            else if (isInt(input[count2]))
+            if (isInt(input[count2]))
             {
                 listInt.add(Integer.parseInt(input[count2]));
+            }
+            else if (isFloat(input[count2]))
+            {
+                listFloat.add(Float.parseFloat(input[count2]));
             }
             count2++;
         }
 
-        System.out.println("intIter: " + intItr.next());
-        System.out.println("Inputted values: ");
+        //System.out.println("intIter: " + intItr.next());
+        System.out.print("Inputted values: ");
+        Iterator<Integer> intItr = listInt.iterator();
+        Iterator<Float> floatItr = listFloat.iterator();
 
-        while (intItr.hasNext() || floatItr.hasNext())
+        while (intItr.hasNext())
         {
-            if (intItr.hasNext())
-                System.out.println(intItr.next());
+            System.out.print(intItr.next() + " ");
             if (floatItr.hasNext())
-                System.out.println(floatItr.next());
+                System.out.print(floatItr.next() +  " ");
         }
+        while(floatItr.hasNext())
+        {
+            System.out.print(floatItr.next() + " ");
+        }
+        System.out.println();
 
 
     }
