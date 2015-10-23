@@ -57,7 +57,8 @@ public class LList<T>
         temp.component = item;
         if (head == null)
         {
-            head.next = temp;
+            head = new Node();
+            head.component = item;
         }
         else
         {
