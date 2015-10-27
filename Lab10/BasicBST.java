@@ -70,19 +70,19 @@ public class BasicBST
     {
         int h1 = 0;
         int h2 = 0;
-        if(root == null)
+        if(treeroot == null)
             return -1;
-        if(root.left == null && root.right == null)
-            return 0;
-
-
-        h1 += height(root.left);
-        h2 += height(root.right);
-
-        if (h1 > h2)
-            return h1 + 1;
         else
-            return h2 + 1;
+        {
+            h1 = height(treeroot.left) + 1;
+            h2 = height(treeroot.right) + 1;
+
+            if (h1 > h2)
+                return h1;
+            else
+                return h2;
+        }
+
     }
 
 
