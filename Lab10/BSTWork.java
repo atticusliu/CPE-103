@@ -1,109 +1,64 @@
+import java.lang.System;
 import java.util.*;
 
-public class BasicBST
+public class BSTWork
 {
-    private class BSTNode()
-    {
-        int element;
-        BSTNode left;
-        BSTNote right;
-    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BasicBST bst = new BasicBST();
 
-    private BSTNode root;
+        System.out.println("Choose one of the following operations: ");
+        System.out.println("    -add/insert (enter the letter a)");
+        System.out.println("    -count odds (enter the letter o)");
+        System.out.println("    -get height (enter the letter h)");
+        System.out.println("    -count leaves (enter the letter l)");
+        System.out.println("    -count one-child nodes(enter the letter c)");
+        System.out.println("    -quit (enter the letter q)");
 
-    public BasicBST()
-    { root = null; }
+        //setting condition for loop (as long as the user has not pressed q)
+        boolean cond = true;
+        while (cond) {
+            System.out.println("Enter menu choice: ");
+            String in = sc.nextLine();
 
-    public void insert(int item)
-    {
-        root = insert(item, root);
-    }
-
-    private BSTNode insert(int item, BSTNode treeroot)
-    {
-        // if subtree is empty
-        if(treeroot == null)
-        {
-            BSTNode temp = new BSTNode();
-            treeroot = temp;
-            temp.element = item;
+            if (in.length() == 1)
+            {
+                switch (in.charAt(0))
+                {
+                    case 'a':
+                        // integers?!
+                        System.out.println("Value: ");
+                        if (sc.hasNextInt()) {
+                            int temp = sc.nextInt();
+                            sc.nextLine();
+                            bst.insert(temp);
+                            System.out.println(temp + " added.");
+                        } else {
+                            System.out.println("Invalid value for add command.");
+                            sc.nextLine();
+                        }
+                        break;
+                    case 'o':
+                        System.out.println("Number of odd values: " + bst.countOdds());
+                        break;
+                    case 'h':
+                        System.out.println("Height of BST: " + bst.height());
+                        break;
+                    case 'l':
+                        System.out.println("Number of leaves: " + bst.countLeaves());
+                        break;
+                    case 'c':
+                        System.out.println("Number of one-child nodes: " + bst.countOneChildParents());
+                        break;
+                    case 'q':
+                        cond = false;
+                        System.out.println("Quitting.");
+                        break;
+                    default:
+                        System.out.println("Invalid value");
+                        break;
+                }
+            }
         }
-        else
-        {
-            if(item < treeroot.element)
-                treeroot.left = insert(item, treeroot.left);
-            else
-                treeroot.right = insert(item, treeroot.right);
-        }
-        return treeroot;
-    }
-
-    public int countOdds()
-    {
-        countOdds(root);
-    }
-
-    private int countOdds(int counter, BSTNode treeroot)
-    {
-        int count = 0;
-        if(treeroot == null)
-            return 0;
-        else
-        {
-            // check the root
-            if(treeroot.element % 2 == 1)
-                count++;
-            count += countOdds(count, treeroot.left);
-            count += countOdds(count, treeroot.right);
-        }
-        return count;
-    }
-
-    public int height()
-    {
-        height(root);
-    }
-
-    private int height(int counter, BSTNode treeroot)
-    {
-        int h1 = 0;
-        int h2 = 0;
-        int ret;
-        if(treeroot == null)
-            return -1;
-        if(treeroot.left == null && treeroot.right == null)
-            return 0;
-        if(treeroot.left != null || treeroot.right != null)
-            counter++;
-        else
-        {
-            countLeft = height(h1, treeroot.left);
-            countRight = height(h2, treeroot.right);
-        }
-        if(h1 > h2)
-            ret = h1 + 1;
-        else
-            ret = h2 + 1;
-        return ret;
-    }
-
-    public int countLeaves()
-    {
-        countLeaves(root);
-    }
-
-    private int countLeaves(BSTNode treeroot)
-    {
-
-    }
-
-    public int countOneChildParents()
-    {
-        countOneChildParents(root);
-    }
-
-    private int countOneChildParents(BSTNode treeroot)
-    {
-
     }
 }
