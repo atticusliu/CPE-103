@@ -18,7 +18,7 @@ public class BSTWork
         //setting condition for loop (as long as the user has not pressed q)
         boolean cond = true;
         while (cond) {
-            System.out.println("Enter menu choice: ");
+            System.out.print("Enter menu choice: ");
             String in = sc.nextLine();
 
             if (in.length() == 1)
@@ -27,7 +27,7 @@ public class BSTWork
                 {
                     case 'a':
                         // integers?!
-                        System.out.println("Value: ");
+                        System.out.print("Value: ");
                         if (sc.hasNextInt()) {
                             int temp = sc.nextInt();
                             sc.nextLine();

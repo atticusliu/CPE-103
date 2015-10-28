@@ -100,7 +100,7 @@ public class BasicBST
         {
             // position roots until we reach roots where there are no children
             if(treeroot.left == null && treeroot.right == null)
-                count++;
+                count ++;
             else
             {
                 count += countLeaves(treeroot.left);
@@ -117,20 +117,19 @@ public class BasicBST
 
     private int countOneChildParents(BSTNode treeroot)
     {
-        int count = 0;
+        int count;
         if(treeroot == null)
-            return 0;
+            count = 0;
         else
         {
             // one parent or the other
             if(treeroot.left == null && treeroot.right != null)
-                count++;
-            if(treeroot.left != null && treeroot.right == null)
-                count++;
+                count = countOneChildParents(treeroot.right) + 1;
+            else if(treeroot.left != null && treeroot.right == null)
+                count = countOneChildParents(treeroot.left) + 1;
             else
             {
-                count += countOneChildParents(treeroot.left);
-                count += countOneChildParents(treeroot.right);
+                count = countOneChildParents(treeroot.left) + countOneChildParents(treeroot.right);
             }
         }
         return count;
