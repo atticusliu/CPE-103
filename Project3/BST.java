@@ -15,33 +15,15 @@ public class BST<T extends Comparable<? super T>>
     {
         T element;
         BSTNode left, right;
-    }
 
-    public BSTNode()
-    {
-        this.element = element;
-        this.left = left;
-        this.right = right;
+        public BSTNode() {
+            this.element = element;
+            this.left = left;
+            this.right = right;
+        }
     }
 
     private BSTNode root;
-
-    public BST()
-    {
-        root = null;
-    }
-
-    // static class to define MyException
-    public static class MyException extends RuntimeException
-    {
-        // constructor without parameters
-        public MyException()
-        { super(); }
-
-        // constructor with parameter message
-        public MyException(String message)
-        { super(message); }
-    }
 
     // Iterator for pre-order traversal
     private class PreIter implements Iterator<T>
@@ -57,7 +39,7 @@ public class BST<T extends Comparable<? super T>>
                 stk.push(root);
         }
 
-        // check fi there is an unvisited element
+        // check if there is an unvisited element
         public boolean hasNext()
         {
             return !stk.isEmpty();
@@ -91,7 +73,7 @@ public class BST<T extends Comparable<? super T>>
                 stackUpLefts(root);
         }
 
-        // check fi there is an unvisited element
+        // check if there is an unvisited element
         public boolean hasNext()
         {
             return !stk.isEmpty();
@@ -111,9 +93,8 @@ public class BST<T extends Comparable<? super T>>
             return y.element;
         }
 
-        // helper function to next()
         private void stackUpLefts(BSTNode x)
-            while(x.left != null)
+        while(x.left != null)
         {
             stk.push(x.left);
             // move x to point to its left child
@@ -153,6 +134,24 @@ public class BST<T extends Comparable<? super T>>
                 queue.enqueue(y.right);
             return y.element;
         }
+    }
+
+    // static class to define MyException
+    public static class MyException extends RuntimeException
+    {
+        // constructor without parameters
+        public MyException()
+        { super(); }
+
+        // constructor with parameter message
+        public MyException(String message)
+        { super(message); }
+    }
+
+    // constructor to create empty BST
+    public BST()
+    {
+        root = null;
     }
 
     public void insert(T item)
@@ -234,32 +233,83 @@ public class BST<T extends Comparable<? super T>>
 
     public boolean find(T item)
     {
-
+        return find(item, root);
     }
 
+    private boolean find(int item, BSTNode treeroot)
+    {
+        boolean answer;
+        // base case
+        if(root == null)
+            answer = false;
+        else
+        {
+            // if target is the subtree's root element
+            if(item.compareTo(treeroot.element) == 0)
+                answer = true;
+            else
+            {
+                // if target is smaller than subtree's root element
+                if(item.compareTo(treeroot.element) < 0)
+                    answer = find(item, treeroot.left);
+                else
+                    answer = find(item, treeroot.right);
+            }
+        }
+        return answer;
+    }
+
+    // check to see if root is null
     public boolean isEmpty()
     {
-
+        return root == null;
     }
 
+    // make root null
     public void makeEmpty()
     {
-
+        root = null;
     }
 
+    // use recursion
     public int size()
     {
+        return size(root);
+    }
 
+    private int size(BSTNode treeroot)
+    {
+        int count = 0;
+        if(treeroot == null)
+            return 0;
+        else
+        {
+            count = size(treeroot.left) + 1;
+            count = size(treeroot.right) + 1;
+        }
+        return count;
     }
 
     public T findMinimum()
     {
+        return findMinimum(root);
+    }
 
+    private T findMinimum(BSTNode treeroot)
+    {
+        if(treeroot == null)
+            throw MyException();
     }
 
     public T findMaximum()
     {
+        return findMaximum(root);
+    }
 
+    private T findMaximum(BSTNode treeroot)
+    {
+        if(treeroot == null)
+            throw MyException();
     }
 
     // to create a new PreIter object
