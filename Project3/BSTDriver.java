@@ -10,8 +10,7 @@ import java.util.*;
 
 public class BSTDriver
 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // new scanner object
         Scanner sc = new Scanner(System.in);
         BST<Integer> binTree = new BST<Integer>();
@@ -35,87 +34,129 @@ public class BSTDriver
         boolean cond = true;
 
 
-        while(cond)
-        {
-            System.out.println("Enter menu choices");
+        while (cond) {
+            System.out.print("Enter menu choice: ");
             String in = sc.nextLine();
 
-            if(in.length() == 1)
-            {
-                switch(in.charAt(0))
-                {
+            if (in.length() == 1) {
+                switch (in.charAt(0)) {
+
+
+                    // ADD AN ELEMENT
                     case 'a':
-                        System.out.println("Value: ");
-                        if (sc.hasNextInt())
-                        {
+                        System.out.print("Value: ");
+                        if (sc.hasNextInt()) {
                             int temp = sc.nextInt();
                             sc.nextLine();
                             binTree.insert(temp);
-                            System.out.println(temp + "added");
-                        }
-                        else {
-                            System.out.println("Invalid value for command");
+                            System.out.println(temp + " added.");
+                        } else {
+                            System.out.println("Invalid value for command.");
                             sc.nextLine();
                         }
                         break;
+
+                    // DELETE AN ELEMENT
                     case 'd':
-                        System.out.println("Value: ");
-                        if (sc.hasNextInt())
-                        {
+                        System.out.print("Value: ");
+                        if (sc.hasNextInt()) {
                             int temp = sc.nextInt();
                             sc.nextLine();
                             binTree.delete(temp);
-                            System.out.println(temp + "deleted");
-                        }
-                        else {
-                            System.out.println("Invalid value for command");
+                            System.out.println(temp + " deleted.");
+                        } else {
+                            System.out.println("Invalid value for command.");
                             sc.nextLine();
                         }
                         break;
+
+                    // FIND AN ELEMENT
                     case 'f':
-                        System.out.println("Value: ");
-                        if (sc.hasNextInt())
-                        {
+                        System.out.print("Value: ");
+                        if (sc.hasNextInt()) {
                             int temp = sc.nextInt();
                             sc.nextLine();
                             if (binTree.find(temp))
-                                System.out.println(temp + "found");
+                                System.out.println(temp + " found.");
                             else
-                                System.out.println("Not found");
+                                System.out.println("Not found.");
+                        } else {
+                            System.out.println("Invalid value for command.");
+                            sc.nextLine();
                         }
-                        else {
-                            System.out.println("Invalid value for command");
-                            sc.next
                         break;
+
+                    // CHECK IF TREE IS EMPTY
                     case 'e':
+                        if (binTree.isEmpty())
+                            System.out.println("Tree is empty.");
+                        else
+                            System.out.println("Tree is not empty.");
                         break;
+
+                    // MAKE TREE EMPTY
                     case 'k':
+                        binTree.makeEmpty();
+                        System.out.println("Tree is made empty.");
                         break;
+
+                    // GET NUMBER OF NODES IN TREE
                     case 'n':
+                        System.out.println("There are " + binTree.size() + " nodes in the tree.");
                         break;
+
+                    // FIND MINIMAL ELEMENT
                     case 'm':
+                        System.out.println("The minimal element in the tree is " + binTree.findMinimum());
                         break;
+
+                    // GET MAXIMAL ELEMENT
                     case 'x':
+                        System.out.println("The maximal element in the tree is " + binTree.findMaximum());
                         break;
+
+                    // PRINT TREE IN PREORDER (ITERATOR)
                     case 'p':
+                        Iterator<Integer> preIter = binTree.iteratorPre();
+                        while (preIter.hasNext())
+                            System.out.println(preIter.next());
                         break;
+
+                    // PRINT TREE IN INORDER (ITERATOR)
                     case 'i':
+                        Iterator<Integer> inIter = binTree.iteratorIn();
+                        while (inIter.hasNext())
+                            System.out.println(inIter.next());
                         break;
+
+                    // PRINT TREE IN LEVELORDER (ITERATOR)
                     case 'l':
+                        Iterator<Integer> levelIter = binTree.iteratorLevel();
+                        while (levelIter.hasNext())
+                            System.out.println(levelIter.next());
                         break;
+
+                    // PRINT TREE USING printTree()
                     case 't':
+                        binTree.printTree();
                         break;
+
+                    // OUTPUT TREE USING toString()
                     case 'o':
+                        System.out.println("Tree: " + binTree.toString());
                         break;
+
+                    // QUIT THE PROGRAM
                     case 'q':
                         cond = false;
                         System.out.println("Farewell.");
                         break;
                     default:
-                        System.out.println("Invalid menu choice");
+                        System.out.println("Invalid menu choice.");
                 }
+            } else {
+                System.out.println("Invalid menu choice.");
             }
         }
-
-
     }
+}
