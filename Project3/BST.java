@@ -6,6 +6,7 @@
  * Project 3
  */
 
+import java.lang.UnsupportedOperationException;
 import java.util.*;
 import java.util.NoSuchElementException;
 
@@ -46,12 +47,14 @@ public class BST<T extends Comparable<? super T>>
         // check if there is an unvisited element
         public boolean hasNext()
         {
+            System.out.println("cats");
             return !stk.isEmpty();
         }
 
         // return "next" element of the collection
         public T next()
         {
+
             if(!hasNext())
                 throw new NoSuchElementException();
             BSTNode y = stk.pop();
@@ -61,45 +64,75 @@ public class BST<T extends Comparable<? super T>>
                 stk.push(y.left);
             return y.element;
         }
+
+        public void remove()
+        {
+            throw new UnsupportedOperationException();
+        }
+
     }
 
     // Iterator for in-order traversal
     private class InIter implements Iterator<T>
     {
-        // instance variable used to get elements
-        public MyStack<BSTNode> stk;
 
-        // constructor
-        public InIter() {
-            stk = new MyStack<BSTNode>();
-            if (root != null)
-                stackUpLefts(root);
-        }
-
-        // check if there is an unvisited element
-        public boolean hasNext() {
-            return !stk.isEmpty();
-        }
-
-        // return "next" element of the collection
-        public T next() {
-            if (!hasNext())
-                throw new NoSuchElementException();
-            BSTNode y = stk.pop();
-            if (y.right != null) {
-                stk.push(y.right);
-                stackUpLefts(y.right);
-            }
-            return y.element;
-        }
-
-        private void stackUpLefts(BSTNode x) {
+        // method that repeatedly turns left
+        private void stackUpLefts(BSTNode x)
+        {
+            System.out.println("A");
             while (x.left != null) {
                 stk.push(x.left);
                 // move x to point to its left child
                 x = x.left;
             }
         }
+
+        // instance variable used to get elements
+        public MyStack<BSTNode> stk;
+
+        // constructor
+        public InIter() {
+            System.out.println("B");
+            stk = new MyStack<BSTNode>();
+            if (root != null)
+                stackUpLefts(root);
+        }
+
+        // check if there is an unvisited element
+        public boolean hasNext()
+        {
+            System.out.println("C");
+            return !stk.isEmpty();
+        }
+
+        // return "next" element of the collection
+        public T next()
+        {
+            System.out.println("D");
+            if (!hasNext())
+            {
+                System.out.println("NOSUCH");
+                throw new NoSuchElementException();
+            }
+
+            System.out.println("E");
+            BSTNode y = new BSTNode();
+            y = stk.pop();
+            System.out.println("F");
+            if (y.right != null) {
+                System.out.println("G");
+                stk.push(y.right);
+                stackUpLefts(y.right);
+            }
+            System.out.println("H");
+            return y.element;
+        }
+
+        public void remove()
+        {
+            throw new UnsupportedOperationException();
+        }
+
     }
 
     // Iterator for level-order traversal
@@ -116,7 +149,7 @@ public class BST<T extends Comparable<? super T>>
                 queue.enqueue(root);
         }
 
-        // check fi there is an unvisited element
+        // check if there is an unvisited element
         public boolean hasNext()
         {
             return !queue.isEmpty();
@@ -133,6 +166,11 @@ public class BST<T extends Comparable<? super T>>
             if(y.right != null)
                 queue.enqueue(y.right);
             return y.element;
+        }
+
+        public void remove()
+        {
+            throw new UnsupportedOperationException();
         }
     }
     // ********** END PRIVATE ITERATOR CLASSES **********
@@ -345,6 +383,7 @@ public class BST<T extends Comparable<? super T>>
     // to create a new InIter object
     public Iterator<T> iteratorIn()
     {
+        System.out.println("E");
         return new InIter();
     }
 
@@ -398,11 +437,15 @@ public class BST<T extends Comparable<? super T>>
         String ret = "";
         if(treeroot != null)
         {
-            ret += treeroot.element + " ";
+            ret = treeroot.element + " ";
+            ret = ret.concat(toString(treeroot.left));
+            ret = ret.concat(toString(treeroot.right));
+            /*
             if(treeroot.left != null)
                 ret = toString(treeroot.left);
             if(treeroot.right != null)
                 ret = toString(treeroot.right);
+            */
         }
         return ret;
     }

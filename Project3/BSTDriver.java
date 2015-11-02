@@ -21,7 +21,7 @@ public class BSTDriver
         System.out.println("     f - find the element");
         System.out.println("     e - check if the tree is empty");
         System.out.println("     k - make the tree empty");
-        System.out.println("     n - get the number of nodes(the size) of the tree");
+        System.out.println("     n - get the number of nodes (the size) of the tree");
         System.out.println("     m - find the mimimal element");
         System.out.println("     x - find the maximal element");
         System.out.println("     p - print the tree in preorder using iterator");
@@ -126,7 +126,11 @@ public class BSTDriver
                     case 'i':
                         Iterator<Integer> inIter = binTree.iteratorIn();
                         while (inIter.hasNext())
+                        {
+                            System.out.println("FETTY");
                             System.out.println(inIter.next());
+                        }
+
                         break;
 
                     // PRINT TREE IN LEVELORDER (ITERATOR)
