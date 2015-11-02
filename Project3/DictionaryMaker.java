@@ -21,6 +21,13 @@ public class DictionaryMaker
 
         //gets name for output file and sets up file for outputting
         System.out.println("What is the name of the output file?: ");
+        String outputFile = sc.next();
+        sc.nextLine();
+
+        //BST object containing all the distinct words in collection
+        BST<String> words = new BST<String>();
+
+
 
     }
 

@@ -284,7 +284,7 @@ public class BST<T extends Comparable<? super T>>
     {
         boolean answer;
         // base case
-        if(root == null)
+        if(treeroot == null)
             answer = false;
         else
         {
