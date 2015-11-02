@@ -143,6 +143,7 @@ public class BSTDriver
                     // PRINT TREE USING printTree()
                     case 't':
                         binTree.printTree();
+                        System.out.println();
                         break;
 
                     // OUTPUT TREE USING toString()

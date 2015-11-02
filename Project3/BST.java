@@ -95,7 +95,11 @@ public class BST<T extends Comparable<? super T>>
             System.out.println("B");
             stk = new MyStack<BSTNode>();
             if (root != null)
+            {
+                stk.push(root);
                 stackUpLefts(root);
+            }
+
         }
 
         // check if there is an unvisited element
@@ -116,8 +120,7 @@ public class BST<T extends Comparable<? super T>>
             }
 
             System.out.println("E");
-            BSTNode y = new BSTNode();
-            y = stk.pop();
+            BSTNode y = stk.pop();
             System.out.println("F");
             if (y.right != null) {
                 System.out.println("G");
@@ -280,6 +283,7 @@ public class BST<T extends Comparable<? super T>>
         return find(item, root);
     }
 
+    // crashes when inputted element isn't in the tree
     private boolean find(T item, BSTNode treeroot)
     {
         boolean answer;
@@ -407,19 +411,9 @@ public class BST<T extends Comparable<? super T>>
         if(treeroot != null)
         {
             System.out.println(treeroot.element);
-        }
-        else
-        {
-            if(treeroot.left != null)
-            {
-                System.out.print(space);
-                printTree(treeroot.left);
-            }
-            if(treeroot.right != null)
-            {
-                System.out.print(space);
-                printTree(treeroot.right);
-            }
+            System.out.print(space);
+            printTree(treeroot.left);
+            printTree(treeroot.right);
         }
     }
 
