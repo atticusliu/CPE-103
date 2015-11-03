@@ -8,11 +8,14 @@
 
 import java.util.*;
 
+// class to implement BSTDriver
 public class BSTDriver
 {
+    // main method
     public static void main(String[] args) {
         // new scanner object
         Scanner sc = new Scanner(System.in);
+        // new binTree object
         BST<Integer> binTree = new BST<Integer>();
 
         System.out.println("Choose one of the following operations by entering provided letter: ");
@@ -31,8 +34,8 @@ public class BSTDriver
         System.out.println("     o - output the tree using toString");
         System.out.println("     q - quit the program");
 
+        // boolean value to run through while loop below
         boolean cond = true;
-
 
         while (cond) {
             System.out.print("Enter menu choice: ");
@@ -41,11 +44,11 @@ public class BSTDriver
             if (in.length() == 1) {
                 switch (in.charAt(0)) {
 
-
                     // ADD AN ELEMENT
                     case 'a':
                         System.out.print("Value: ");
                         if (sc.hasNextInt()) {
+                            // new integer temp to hold inputted value
                             int temp = sc.nextInt();
                             sc.nextLine();
                             binTree.insert(temp);
@@ -60,6 +63,7 @@ public class BSTDriver
                     case 'd':
                         System.out.print("Value: ");
                         if (sc.hasNextInt()) {
+                            // new integer temp to hold inputted value
                             int temp = sc.nextInt();
                             sc.nextLine();
                             binTree.delete(temp);
@@ -74,6 +78,7 @@ public class BSTDriver
                     case 'f':
                         System.out.print("Value: ");
                         if (sc.hasNextInt()) {
+                            // new integer temp to hold inputted value
                             int temp = sc.nextInt();
                             sc.nextLine();
                             if (binTree.find(temp))
@@ -127,6 +132,7 @@ public class BSTDriver
 
                     // PRINT TREE IN PREORDER (ITERATOR)
                     case 'p':
+                        // create new Iterator called preIter, for pre-order traversal
                         Iterator<Integer> preIter = binTree.iteratorPre();
                         while (preIter.hasNext())
                             System.out.println(preIter.next());
@@ -134,6 +140,7 @@ public class BSTDriver
 
                     // PRINT TREE IN INORDER (ITERATOR)
                     case 'i':
+                        // create new Iterator called inIter, for in-order traversal
                         Iterator<Integer> inIter = binTree.iteratorIn();
                         while (inIter.hasNext())
                         {
@@ -144,6 +151,7 @@ public class BSTDriver
 
                     // PRINT TREE IN LEVELORDER (ITERATOR)
                     case 'l':
+                        // create new Iterator called levelIter, for level-order traversal
                         Iterator<Integer> levelIter = binTree.iteratorLevel();
                         while (levelIter.hasNext())
                             System.out.println(levelIter.next());
@@ -162,6 +170,7 @@ public class BSTDriver
 
                     // QUIT THE PROGRAM
                     case 'q':
+                        // set cond to false to break out of loop
                         cond = false;
                         System.out.println("Farewell.");
                         break;

@@ -8,12 +8,13 @@
 
 import java.util.*;
 
-// defining the stack
+// public class to define stack, stack operations
 public class MyStack<T>
 {
    // nested Node class
    private class Node
    {
+      // each node has an element T, elem, and next, to point to the next value in a stack
       public T elem;
       public Node next;
    }
@@ -27,25 +28,28 @@ public class MyStack<T>
       top = null;
    }
    
-   // push method
+   // public method to push new element into stack
    public void push(T element)
    {
       // defining a new Node called temp
       Node temp = new Node();
       temp.elem = element;
+      // link front of list to new node
       temp.next = top;
+      // adjust top to point to newly added node
       top = temp;
       
    }
 
-   // pop method
+   // public method to pop Node off stack
    public T pop()
    {
       if (top != null)
       {
-         // defining a new Node called temp
+         // defining a new Node called temp, will hold top
          Node temp = new Node();
          temp = top;
+         // delete first node
          top = temp.next;
          return temp.elem;
       }
@@ -53,7 +57,7 @@ public class MyStack<T>
          throw new EmptyStackException();
    }
 
-   // peek method
+   // public peek method that returns value of first node
    public T peek()
    {
       if (top != null)
@@ -64,7 +68,7 @@ public class MyStack<T>
          throw new EmptyStackException();
    }
 
-   // isEmpty method
+   // public isEmpty method that returns true if list is empty, false otherwise
    public boolean isEmpty()
    {
       if (top == null)

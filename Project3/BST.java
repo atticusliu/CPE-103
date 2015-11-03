@@ -11,14 +11,17 @@ import java.lang.UnsupportedOperationException;
 import java.util.*;
 import java.util.NoSuchElementException;
 
+// BST class to hold BSTNode class, iterator classes, BST methods
 public class BST<T extends Comparable<? super T>>
 {
     // private class to declare BSTNode object
     private class BSTNode
     {
+        // BSTNode holds an element, a left child, and a right child
         T element;
         BSTNode left, right;
 
+        // BST Node constructor
         public BSTNode() {
             this.element = element;
             this.left = left;
@@ -40,6 +43,7 @@ public class BST<T extends Comparable<? super T>>
         // constructor
         public PreIter()
         {
+            // creating a new stack of BSTNode objects
             stk = new MyStack<BSTNode>();
             if(root != null)
                 stk.push(root);
@@ -54,9 +58,9 @@ public class BST<T extends Comparable<? super T>>
         // return "next" element of the collection
         public T next()
         {
-
             if(!hasNext())
                 throw new NoSuchElementException();
+            // set y equal to what is popped off stk
             BSTNode y = stk.pop();
             if(y.right != null)
                 stk.push(y.right);
@@ -65,6 +69,7 @@ public class BST<T extends Comparable<? super T>>
             return y.element;
         }
 
+        // public remove method for the pre-order traversal
         public void remove()
         {
             throw new UnsupportedOperationException();
@@ -91,13 +96,13 @@ public class BST<T extends Comparable<? super T>>
 
         // constructor
         public InIter() {
+            // create a stack of BSTNode objects
             stk = new MyStack<BSTNode>();
             if (root != null)
             {
                 stk.push(root);
                 stackUpLefts(root);
             }
-
         }
 
         // check if there is an unvisited element
@@ -113,7 +118,7 @@ public class BST<T extends Comparable<? super T>>
             {
                 throw new NoSuchElementException();
             }
-
+            // create BSTNode y, set it to what's popped off the stack
             BSTNode y = stk.pop();
             if (y.right != null) {
                 stk.push(y.right);
@@ -122,11 +127,11 @@ public class BST<T extends Comparable<? super T>>
             return y.element;
         }
 
+        // method to remove for in-order traversal
         public void remove()
         {
             throw new UnsupportedOperationException();
         }
-
     }
 
     // Iterator for level-order traversal
@@ -138,6 +143,7 @@ public class BST<T extends Comparable<? super T>>
         // constructor
         public LevelIter()
         {
+            // create queue of BSTNode objects
             queue = new LQueue<BSTNode>();
             if(root != null)
                 queue.enqueue(root);
@@ -154,6 +160,7 @@ public class BST<T extends Comparable<? super T>>
         {
             if(!hasNext())
                 throw new NoSuchElementException();
+            // BSTNode y is what's dequeued from queue
             BSTNode y = queue.dequeue();
             if(y.left != null)
                 queue.enqueue(y.left);
@@ -162,6 +169,7 @@ public class BST<T extends Comparable<? super T>>
             return y.element;
         }
 
+        // method to remove for level-order traversal
         public void remove()
         {
             throw new UnsupportedOperationException();
@@ -189,14 +197,17 @@ public class BST<T extends Comparable<? super T>>
 
     // ********** BEGINNING OF BST METHODS **********
 
+    // public method to add an element to the BST
     public void insert(T item)
     { root = insert(item, root); }
 
+    // private method for insert--recursion used here
     private BSTNode insert(T item, BSTNode treeroot)
     {
         // if subtree is empty
         if(treeroot == null)
         {
+            // BSTNode temp created
             BSTNode temp = new BSTNode();
             treeroot = temp;
             temp.element = item;
@@ -211,11 +222,13 @@ public class BST<T extends Comparable<? super T>>
         return treeroot;
     }
 
+    // public method to delete element from bst
     public void delete(T item)
     {
         root = delete(item, root);
     }
 
+    // private method for delete--recursion used here
     private BSTNode delete(T item, BSTNode treeroot)
     {
         // if subtree is not empty
@@ -232,13 +245,15 @@ public class BST<T extends Comparable<? super T>>
         return treeroot;
     }
 
-    // called on by delete
+    // private helper method called on by delete that deletes a node
     private BSTNode deleteNode(BSTNode x)
     {
+        // initialize BSTNode newRoot
         BSTNode newRoot;
         // if x has two children
         if(x.left != null && x.right != null)
         {
+            // create T type nextValue, set it to successor(x)
             T nextValue = successor(x);
             x.element = nextValue;
             x.right = delete(nextValue, x.right);
@@ -259,6 +274,7 @@ public class BST<T extends Comparable<? super T>>
         return newRoot;
     }
 
+    // private helper method called on by delete
     // gets the node containing the smallest value of right subtree of x
     private T successor(BSTNode x)
     {
@@ -272,14 +288,16 @@ public class BST<T extends Comparable<? super T>>
         return temp.element;
     }
 
+    // public function to call on find
     public boolean find(T item)
     {
         return find(item, root);
     }
 
-    // crashes when inputted element isn't in the tree
+    // private function for find, recursion used here
     private boolean find(T item, BSTNode treeroot)
     {
+        // initialize boolean variable answer, will be returned at end
         boolean answer;
         // base case
         if(treeroot == null)
@@ -301,26 +319,28 @@ public class BST<T extends Comparable<? super T>>
         return answer;
     }
 
-    // check to see if root is null
+    // public method to check to see if root is null
     public boolean isEmpty()
     {
         return root == null;
     }
 
-    // make root null
+    // public method to make root null
     public void makeEmpty()
     {
         root = null;
     }
 
-    // use recursion
+    // public method to find size
     public int size()
     {
         return size(root);
     }
 
+    // private method to find size, recursion used here
     private int size(BSTNode treeroot)
     {
+        // initialize count variable, will be returned at end
         int count;
         if(treeroot == null)
             count = 0;
@@ -329,13 +349,16 @@ public class BST<T extends Comparable<? super T>>
         return count;
     }
 
+    // public method to find minimum
     public T findMinimum()
     {
         return findMinimum(root);
     }
 
+    // private method to find minimum, recurison used here
     private T findMinimum(BSTNode treeroot)
     {
+        // initialize T type variable answer, will be returned at end
         T answer;
         if(treeroot == null)
             throw new MyException("Tree is empty.");
@@ -351,13 +374,16 @@ public class BST<T extends Comparable<? super T>>
 
     }
 
+    // public method to find maximum
     public T findMaximum()
     {
         return findMaximum(root);
     }
 
+    // private method to find maximum, recursion used here
     private T findMaximum(BSTNode treeroot)
     {
+        // initialize T type variable answer, will be returned at end
         T answer;
         if(treeroot == null)
             throw new MyException("Tree is empty.");
@@ -375,28 +401,33 @@ public class BST<T extends Comparable<? super T>>
     // to create a new PreIter object
     public Iterator<T> iteratorPre()
     {
+        // new PreIter object, refers to pre-order iterator created earlier in the file
         return new PreIter();
     }
 
     // to create a new InIter object
     public Iterator<T> iteratorIn()
     {
+        // new inIter object, refer to in-order iterator created earlier in the file
         return new InIter();
     }
 
     // to create a new LevelIter object
     public Iterator<T> iteratorLevel()
     {
+        // new LevelIter object, refer to level-order iterator created earlier in the file
         return new LevelIter();
     }
 
     // recursively print the tree
     public void printTree()
     {
+        // empty string indent, will be added to in private printTree method
         String indent = "";
         printTree(indent, root);
     }
 
+    // private method to print tree, recursion used here
     private void printTree(String space, BSTNode treeroot)
     {
         if(treeroot != null)
@@ -405,24 +436,25 @@ public class BST<T extends Comparable<? super T>>
             space += "    ";
             printTree(space, treeroot.left);
             printTree(space, treeroot.right);
-
         }
-
     }
 
-    // return a string containing all elements of tree
+    // public method to return a string containing all elements of tree
     public String toString()
     {
         return toString(root);
     }
 
-    // print elements out levelorder
+    // private method to print elements out levelorder
     private String toString(BSTNode treeroot)
     {
+        // empty string ret, will be returned at end. Used for concatenation
         String ret = "";
         if(treeroot != null)
         {
+            // set ret equal to element and space
             ret = treeroot.element + " ";
+            // recurisve call, with left and right children
             ret = ret.concat(toString(treeroot.left));
             ret = ret.concat(toString(treeroot.right));
         }
