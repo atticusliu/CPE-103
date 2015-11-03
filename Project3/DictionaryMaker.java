@@ -34,34 +34,29 @@ public class DictionaryMaker
             System.out.println("What is the name of the output file?: ");
             // gets name for output file and sets up file for outputting
             String outputFile = sc.next();
-            sc.nextLine();
+
             // create a PrintWrite object that will write to the output file
             PrintWriter out = new PrintWriter(outputFile);
             // BST object containing all the distinct words in collection
             BST<String> wordTree = new BST<String>();
-            // create a string array to store all the words
-            String[] collectionWords = new String[100];
+
+
             // creating an array of all the words in the input file
             String temp = "";
 
-            while (s.hasNextLine())
+            while (s.hasNext())
             {
-                temp = temp + " " + s.nextLine();
-            }
-            // split the words into the array collectionWords
-            collectionWords = temp.split("\\s+");
+                temp = s.next();
+                if (!wordTree.find(temp))
+                    wordTree.insert(temp);
 
-            // finding if the word is in the tree, if not add to tree
-            for (int i = 0; i < collectionWords.length; i++)
-            {
-                if (!wordTree.find(collectionWords[i]))
-                    wordTree.insert(collectionWords[i]);
             }
+
 
             Iterator<String> i = wordTree.iteratorIn();
             while (i.hasNext())
             {
-                out.println(i.next());
+                out.print(i.next() + "\n");
             }
 
             // when finished writing to the file, close the PrintWriter
