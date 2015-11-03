@@ -235,12 +235,11 @@ public class BST<T extends Comparable<? super T>>
     // called on by delete
     private BSTNode deleteNode(BSTNode x)
     {
-        BSTNode newRoot = new BSTNode();
-        T nextValue = successor(x);
-
+        BSTNode newRoot;
         // if x has two children
         if(x.left != null && x.right != null)
         {
+            T nextValue = successor(x);
             x.element = nextValue;
             x.right = delete(nextValue, x.right);
             newRoot = x;
@@ -253,6 +252,8 @@ public class BST<T extends Comparable<? super T>>
             {
                 if (x.right != null)
                     newRoot = x.right;
+                else
+                    newRoot = null;
             }
         }
         return newRoot;
@@ -262,17 +263,12 @@ public class BST<T extends Comparable<? super T>>
     private T successor(BSTNode x)
     {
         // temp is a pointer
-        System.out.println("A");
         BSTNode temp = new BSTNode();
-        System.out.println("B");
         temp = x.right;
-        System.out.println("C");
         while(temp.left != null)
         {
             temp = temp.left;
-            System.out.println("D");
         }
-        System.out.println("E");
         return temp.element;
     }
 
