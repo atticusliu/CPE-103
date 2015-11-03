@@ -262,10 +262,17 @@ public class BST<T extends Comparable<? super T>>
     private T successor(BSTNode x)
     {
         // temp is a pointer
+        System.out.println("A");
         BSTNode temp = new BSTNode();
+        System.out.println("B");
         temp = x.right;
+        System.out.println("C");
         while(temp.left != null)
+        {
             temp = temp.left;
+            System.out.println("D");
+        }
+        System.out.println("E");
         return temp.element;
     }
 
