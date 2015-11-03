@@ -15,7 +15,7 @@ public class LQueue<T>
    private class Node
    {
       // Node holds T type value
-      // public T value;
+      public T value;
       // next that points to the next Node
       public Node next;
    }
