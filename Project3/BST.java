@@ -6,6 +6,7 @@
  * Project 3
  */
 
+import java.lang.System;
 import java.lang.UnsupportedOperationException;
 import java.util.*;
 import java.util.NoSuchElementException;
@@ -47,7 +48,6 @@ public class BST<T extends Comparable<? super T>>
         // check if there is an unvisited element
         public boolean hasNext()
         {
-            System.out.println("cats");
             return !stk.isEmpty();
         }
 
@@ -79,7 +79,6 @@ public class BST<T extends Comparable<? super T>>
         // method that repeatedly turns left
         private void stackUpLefts(BSTNode x)
         {
-            System.out.println("A");
             while (x.left != null) {
                 stk.push(x.left);
                 // move x to point to its left child
@@ -92,7 +91,6 @@ public class BST<T extends Comparable<? super T>>
 
         // constructor
         public InIter() {
-            System.out.println("B");
             stk = new MyStack<BSTNode>();
             if (root != null)
             {
@@ -105,29 +103,22 @@ public class BST<T extends Comparable<? super T>>
         // check if there is an unvisited element
         public boolean hasNext()
         {
-            System.out.println("C");
             return !stk.isEmpty();
         }
 
         // return "next" element of the collection
         public T next()
         {
-            System.out.println("D");
             if (!hasNext())
             {
-                System.out.println("NOSUCH");
                 throw new NoSuchElementException();
             }
 
-            System.out.println("E");
             BSTNode y = stk.pop();
-            System.out.println("F");
             if (y.right != null) {
-                System.out.println("G");
                 stk.push(y.right);
                 stackUpLefts(y.right);
             }
-            System.out.println("H");
             return y.element;
         }
 
@@ -387,7 +378,6 @@ public class BST<T extends Comparable<? super T>>
     // to create a new InIter object
     public Iterator<T> iteratorIn()
     {
-        System.out.println("E");
         return new InIter();
     }
 
@@ -400,26 +390,24 @@ public class BST<T extends Comparable<? super T>>
     // recursively print the tree
     public void printTree()
     {
-        printTree(root);
+        String indent = "";
+        printTree(indent, root);
     }
 
-    // THIS IS PROBABLY WRONG, TOO
-    private void printTree(BSTNode treeroot)
+    private void printTree(String space, BSTNode treeroot)
     {
-        // indent is four spaces
-        String space = "    ";
         if(treeroot != null)
         {
-            System.out.println(treeroot.element);
-            System.out.print(space);
-            printTree(treeroot.left);
-            printTree(treeroot.right);
+            System.out.println(space + treeroot.element);
+            space += "    ";
+            printTree(space, treeroot.left);
+            printTree(space, treeroot.right);
+
         }
+
     }
 
     // return a string containing all elements of tree
-    // use recursion
-    // SOMETHING IS WRONG HERE
     public String toString()
     {
         return toString(root);
@@ -434,12 +422,6 @@ public class BST<T extends Comparable<? super T>>
             ret = treeroot.element + " ";
             ret = ret.concat(toString(treeroot.left));
             ret = ret.concat(toString(treeroot.right));
-            /*
-            if(treeroot.left != null)
-                ret = toString(treeroot.left);
-            if(treeroot.right != null)
-                ret = toString(treeroot.right);
-            */
         }
         return ret;
     }

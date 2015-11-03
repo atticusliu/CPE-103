@@ -107,11 +107,21 @@ public class BSTDriver
 
                     // FIND MINIMAL ELEMENT
                     case 'm':
+                        if(binTree.isEmpty())
+                        {
+                            System.out.println("Tree is empty.");
+                            break;
+                        }
                         System.out.println("The minimal element in the tree is " + binTree.findMinimum());
                         break;
 
                     // GET MAXIMAL ELEMENT
                     case 'x':
+                        if(binTree.isEmpty())
+                        {
+                            System.out.println("Tree is empty");
+                            break;
+                        }
                         System.out.println("The maximal element in the tree is " + binTree.findMaximum());
                         break;
 
@@ -127,7 +137,6 @@ public class BSTDriver
                         Iterator<Integer> inIter = binTree.iteratorIn();
                         while (inIter.hasNext())
                         {
-                            System.out.println("FETTY");
                             System.out.println(inIter.next());
                         }
 
