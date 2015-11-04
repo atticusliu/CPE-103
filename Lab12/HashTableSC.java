@@ -49,9 +49,9 @@ public class HashTableSC<T>
     {
         for(int i = 0; i < table.length; i++)
         {
-            System.out.println(i + ":" + " ");
+            System.out.print(i + ":" + " ");
             for (int j = 0; j< table[i].size(); j++)
-                System.out.print(table[i][j] + " ");
+                System.out.print(table[i].get(j) + " ");
             System.out.println();
         }
 

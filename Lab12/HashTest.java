@@ -7,6 +7,7 @@ public class HashTest {
         System.out.println("Size of table?");
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
+        sc.nextLine();
         HashTableSC<Integer> t = new HashTableSC<Integer>(size);
 
         System.out.println("Choose one of the following operations: ");
@@ -31,6 +32,7 @@ public class HashTest {
                             int value = sc.nextInt();
                             t.insert(value);
                             System.out.println(value + " is added.");
+                            sc.nextLine();
                         } else {
                             System.out.println("Invalid value.");
                             sc.nextLine();
@@ -64,7 +66,7 @@ public class HashTest {
                         System.out.println("Quitting.");
                         break;
                     default:
-                        System.out.println("Invalid value");
+                        System.out.println("Invalid menu choice");
                 }
             } else {
                 System.out.println("Invalid menu choice");
