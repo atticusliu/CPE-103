@@ -21,13 +21,13 @@ public class HashTest {
         boolean cond = true;
 
         while(cond) {
-            System.out.println("Enter menu choice: ");
+            System.out.print("Enter menu choice: ");
             String in = sc.nextLine();
 
             if (in.length() == 1) {
                 switch (in.charAt(0)) {
                     case 'a':
-                        System.out.println("Value: ");
+                        System.out.print("Value: ");
                         if (sc.hasNextInt()) {
                             int value = sc.nextInt();
                             t.insert(value);
@@ -39,15 +39,23 @@ public class HashTest {
                         }
                         break;
                     case 'd':
-                        System.out.println("Value: ");
+                        System.out.print("Value: ");
+                        int delValue = sc.nextInt();
+                        t.delete(delValue);
+                        System.out.println(delValue + " deleted");
+                        sc.nextLine();
+
+                        /*
                         if (!t.isEmpty()) {
                             int delValue = sc.nextInt();
                             t.delete(delValue);
                             System.out.println(delValue + " deleted");
+                            sc.nextLine();
                         } else {
                             System.out.println("Invalid value");
                             sc.nextLine();
                         }
+                        */
                         break;
                     case 'e':
                         if (t.isEmpty())
@@ -56,10 +64,23 @@ public class HashTest {
                             System.out.println("The table is not empty");
                         break;
                     case 'p':
-                        if (!t.isEmpty())
-                            t.print();
-                        else
-                            System.out.println("Nothing in list");
+                        t.print();
+                        break;
+                    case 'f':
+                        System.out.print("Value: ");
+                        if (sc.hasNextInt()) {
+                            // new integer temp to hold inputted value
+                            int temp = sc.nextInt();
+                            sc.nextLine();
+                            if (t.find(temp))
+                                System.out.println(temp + " found.");
+                            else
+                                System.out.println("Not found.");
+                        }
+                        else {
+                            System.out.println("Invalid value for command.");
+                            sc.nextLine();
+                        }
                         break;
                     case 'q':
                         cond = false;

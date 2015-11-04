@@ -37,12 +37,14 @@ public class HashTableSC<T>
 
     public boolean isEmpty()
     {
-        boolean ret = true;
+        // true if the thing is empty
         for (int i = 0; i < table.length; i++)
         {
-            ret = table[i].size() == 0;
+            if(table[i].size() != 0)
+                return false;
+            //System.out.println(ret);
         }
-        return ret;
+        return true;
     }
 
     public void print()
