@@ -21,13 +21,13 @@ public class HashTableSC<T>
 
     public void delete(T item)
     {
-        if (table.contains(item))
-            table.remove(item);
+        if (table[hash(item)].contains(item))
+            table[hash(item)].remove(item);
     }
 
     public boolean find(T item)
     {
-        return table.contains(item);
+        return table[hash(item)].contains(item);
     }
 
     private int hash(T item)
@@ -49,8 +49,9 @@ public class HashTableSC<T>
     {
         for(int i = 0; i < table.length; i++)
         {
+            System.out.println(i + ":" + " ");
             for (int j = 0; j< table[i].size(); j++)
-                System.out.print(table[i][j]);
+                System.out.print(table[i][j] + " ");
             System.out.println();
         }
 
