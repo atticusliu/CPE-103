@@ -34,6 +34,13 @@ public class HashTable
     //private Iter class that implements Iterator
     private class Iter implements Iterator
     {
+        int cursor;
+        public Iter()
+        {
+            cursor = 0;
+        }
+
+
 
     }
 
