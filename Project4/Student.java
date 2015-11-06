@@ -6,6 +6,8 @@
  * Project 4
  */
 
+import java.util.*;
+
 //represents a student's information record which contains a student's ID and their last name
 public class Student
 {

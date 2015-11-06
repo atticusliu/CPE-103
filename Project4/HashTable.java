@@ -7,6 +7,10 @@ import java.util.Iterator;
  * 4 November 2015
  * Project 4
  */
+
+import java.util.*;
+import java.util.NoSuchElementException;
+
 public class HashTable
 {
     //objects of this class are saved in the table
@@ -32,7 +36,7 @@ public class HashTable
     }
 
     //private Iter class that implements Iterator
-    private class Iter implements Iterator
+    private class Iter implements Iterator<T>
     {
         int cursor;
         public Iter()
@@ -40,14 +44,61 @@ public class HashTable
             cursor = 0;
         }
 
+        public boolean hasNext()
+        {
+            return cursor < length;
+        }
 
+        public T next()
+        {
+            if(!hasNext())
+                throw new NoSuchElementException();
+            return arr[cursor++];
+        }
+
+        // public remove method for the pre-order traversal
+        public void remove()
+        {
+            throw new UnsupportedOperationException();
+        }
 
     }
 
     //create a method nextPrime that finds the next prime number
-    pubic int nextPrime(int number)
+    public int nextPrime(int number)
     {
+        // move up
+        int nextPrimeNumber = number + 1;
+        // start off at the number passed in as parameter
+        if(number >= 2)
+        {
+            // if the nextPrimeNumber isn't prime, increment it, run it again until we get a new prime number
+           while(!isPrime(nextPrimeNumber))
+           {
+               nextPrimeNumber++;
+           }
+        }
+        return nextPrimeNumber;
+    }
 
+    // helper function for nextPrime that checks if the number is prime or not
+    private boolean isPrime(int number)
+    {
+        int checker = 2;
+        boolean isPrime;
+        while(checker <= number)
+        {
+            // not a prime number
+            if(number % checker == 0)
+            {
+                isPrime = false;
+            }
+            else
+            {
+                // increment checker
+                checker++;
+            }
+        }
     }
 
     //methods of basic operations
@@ -95,9 +146,9 @@ public class HashTable
     }
 
     //creates an iter object for collection
-    public Iterator iterator()
+    public Iterator<T> iterator()
     {
-
+        return new Iterator();
     }
 
 }
