@@ -21,6 +21,14 @@ public class HashTable
         //represents if entry is active or not (true - active; false - inactive)
         boolean active;
 
+        //constructor
+        pubic HashEntry(Object item)
+        {
+            element = item;
+            active = true;
+
+        }
+
     }
     //data members
     //holds the entries of the table
@@ -33,6 +41,12 @@ public class HashTable
     {
         table = new HashEntry[nextPrime(2*size)];
         numCells = 0;
+    }
+
+    //hash function
+    private int hash(Object item)
+    {
+        return Math.abs(item.hashCode())% table.length;
     }
 
     //private Iter class that implements Iterator
@@ -106,7 +120,48 @@ public class HashTable
     //inserts an element into hash table
     public void insert(Object item)
     {
+        int index = findPosition(item);
+        if (table[index] == null)
+        {
+            table[index].element = item;
+            numCells++;
+            if (numCells !< (table.length/2))
+            {
+                rehash();
+            }
+        }
+        else
+        {
+            if (table[index].active != active)
+            {
+                active = true;
+            }
+        }
+    }
 
+    //helper function for insert; finds and returns the location of where the entry/element should be placed in the table
+    private int findPosition(Object item)
+    {
+        //i represents the sequential number of the probe
+        int i = 0;
+        //this is the original position that the item is hashed to
+        int hashValue = hash(item);
+        //index identifies the cell to be probed
+        int index = hashValue;
+        //keep looking for the correct position where the item should be hashed to
+        while (table[index] != null && table[index].element != item)
+        {
+            i++;
+            index = (hashValue + (i^2))% table.length;
+
+        }
+        return index;
+    }
+
+    //help function for insert; creates a new table of prime size at least twice as large as the old array and inserts all active elements
+    private void rehash()
+    {
+        temp[] =
     }
 
     //deletes specified item from table
