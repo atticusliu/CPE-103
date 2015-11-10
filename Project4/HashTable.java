@@ -19,13 +19,13 @@ public class HashTable
         //stores the element of the collection
         Object element;
         //represents if entry is active or not (true - active; false - inactive)
-        boolean active;
+        boolean isActive;
 
         //constructor
-        pubic HashEntry(Object item)
+        public HashEntry(Object item)
         {
             element = item;
-            active = true;
+            isActive = true;
 
         }
 
@@ -34,13 +34,13 @@ public class HashTable
     //holds the entries of the table
     private HashEntry[] table;
     //holds the number of occupied cells in the table (active and inactive)
-    private int numCells;
+    private int occupiedCells;
 
     //constructor creates an empty hash table and takes one parameter that represents the number of elements in the collection
     public HashTable(int size)
     {
         table = new HashEntry[nextPrime(2*size)];
-        numCells = 0;
+        occupiedCells = 0;
     }
 
     //hash function
@@ -50,7 +50,7 @@ public class HashTable
     }
 
     //private Iter class that implements Iterator
-    private class Iter implements Iterator<T>
+    private class Iter implements Iterator<Object>
     {
         int cursor;
         public Iter()
@@ -60,14 +60,14 @@ public class HashTable
 
         public boolean hasNext()
         {
-            return cursor < length;
+            return cursor < table.length;
         }
 
-        public T next()
+        public Object next()
         {
             if(!hasNext())
                 throw new NoSuchElementException();
-            return arr[cursor++];
+            return table[cursor++];
         }
 
         // public remove method for the pre-order traversal
@@ -99,7 +99,7 @@ public class HashTable
     private boolean isPrime(int number)
     {
         int checker = 2;
-        boolean isPrime;
+        boolean isPrime = true;
         while(checker <= number)
         {
             // not a prime number
@@ -113,6 +113,7 @@ public class HashTable
                 checker++;
             }
         }
+        return isPrime;
     }
 
     //methods of basic operations
@@ -124,17 +125,17 @@ public class HashTable
         if (table[index] == null)
         {
             table[index].element = item;
-            numCells++;
-            if (numCells !< (table.length/2))
+            occupiedCells++;
+            if (!(occupiedCells < (table.length/2)))
             {
                 rehash();
             }
         }
         else
         {
-            if (table[index].active != active)
+            if (!table[index].isActive)
             {
-                active = true;
+                table[index].isActive = true;
             }
         }
     }
@@ -161,49 +162,102 @@ public class HashTable
     //help function for insert; creates a new table of prime size at least twice as large as the old array and inserts all active elements
     private void rehash()
     {
-        temp[] =
+        int index;
+        HashEntry[] temp = new HashEntry[table.length];
+        temp = table;
+        table = new HashEntry[nextPrime(2*temp.length)];
+        occupiedCells = 0;
+        for (int i = 0; i <= temp.length; i++)
+        {
+            if (temp[i].element != null && temp[i].isActive)
+            {
+                index = findPosition(temp[i].element);
+                table[index].element = temp[i].element;
+                occupiedCells++;
+            }
+        }
+
     }
 
     //deletes specified item from table
     public void delete(Object item)
     {
-
+        int index = findPosition(item);
+        if (table[index] != null && table[index].isActive)
+        {
+            table[index].isActive = false;
+        }
     }
 
     //finds and retrieves given element
     public Object find(Object item)
     {
-
+        boolean answer;
+        int index = findPosition(item);
+        if (table[index] != null && table[index].isActive)
+        {
+            answer = true;
+        }
+        else
+        {
+            answer = false;
+        }
+        return answer;
     }
 
     //returns the number of elements in the collection
     public int elementCount()
     {
-
+        int elemCount = 0;
+        for (int i = 0; i<= table.length; i ++)
+        {
+            if (table[i].isActive)
+                elemCount++;
+        }
+        return elemCount;
     }
 
     //checks if colletion/table is empty or not
     public boolean isEmpty()
     {
-
+        boolean empty = true;
+        for (int i = 0; i <= table.length; i++)
+        {
+            if (table[i].isActive) {
+                empty = false;
+                break;
+            }
+        }
+        return empty;
     }
 
     //clears contents of collection/table
-    public void makeEmpty()
+    /*public void makeEmpty()
     {
 
+
     }
+    */
 
     //prints table contents
     public void printTable()
     {
-
+        for (int i = 0; i <= table.length; i++)
+        {
+            if (table[i].isActive)
+            {
+                System.out.println("[" + i + "]:   " + table[i].element + ", active");
+            }
+            else
+                System.out.println("[" + i + "]:   " + table[i].element + ", inactive");
+            //include an else if statement to show that it is empty
+        }
     }
 
     //creates an iter object for collection
-    public Iterator<T> iterator()
+    public Iterator<Object> iterator()
     {
-        return new Iterator();
+        return new Iter();
     }
 
 }
