@@ -7,13 +7,14 @@
  */
 
 import java.util.*;
+import java.lang.*;
 
 //represents a student's information record which contains a student's ID and their last name
 public class Student
 {
     //two private instance variables
     private long id;            //Student's id
-    private String lastName     //Student's last name with no spaces
+    private String lastName;     //Student's last name with no spaces
 
     //constructor
     public Student(long id, String lastName)
@@ -26,19 +27,21 @@ public class Student
     //compares if the two id's are the same
     public boolean equals(Object other)
     {
-
+        return this.id == ((Student) other).id;
     }
 
     //returns a string containing id and name of student
     public String toString()
     {
-
+        String ret = "{ id: " + id + ", name: " + lastName + " }";
+        return ret;
     }
 
     //returns the hash code of the key of this object
     public int hashCode()
     {
-
+        Long temp = id;
+        return temp.hashCode();
     }
 
 }
