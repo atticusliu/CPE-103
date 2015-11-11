@@ -1,4 +1,4 @@
-import java.util.Iterator;
+import java.util.*;
 
 /*
  * @authors: Salonee Thanawala, Atticus Liu
@@ -26,10 +26,10 @@ public class HashTable
         {
             element = item;
             isActive = true;
-
         }
 
     }
+
     //data members
     //holds the entries of the table
     private HashEntry[] table;
@@ -46,7 +46,7 @@ public class HashTable
     //hash function
     private int hash(Object item)
     {
-        return Math.abs(item.hashCode())% table.length;
+        return  Math.abs(item.hashCode())% table.length;
     }
 
     //private Iter class that implements Iterator
@@ -79,7 +79,7 @@ public class HashTable
     }
 
     //create a method nextPrime that finds the next prime number
-    public int nextPrime(int number)
+    private static int nextPrime(int number)
     {
         // move up
         int nextPrimeNumber = number + 1;
@@ -96,24 +96,14 @@ public class HashTable
     }
 
     // helper function for nextPrime that checks if the number is prime or not
-    private boolean isPrime(int number)
+    private static boolean isPrime(int number)
     {
-        int checker = 2;
-        boolean isPrime = true;
-        while(checker <= number)
-        {
-            // not a prime number
-            if(number % checker == 0)
-            {
-                isPrime = false;
-            }
-            else
-            {
-                // increment checker
-                checker++;
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                return false;
             }
         }
-        return isPrime;
+        return true;
     }
 
     //methods of basic operations
@@ -124,7 +114,8 @@ public class HashTable
         int index = findPosition(item);
         if (table[index] == null)
         {
-            table[index].element = item;
+            //table[index].element = item;
+            HashEntry newEntry = new HashEntry(item);
             occupiedCells++;
             if (!(occupiedCells < (table.length/2)))
             {
@@ -140,6 +131,7 @@ public class HashTable
         }
     }
 
+
     //helper function for insert; finds and returns the location of where the entry/element should be placed in the table
     private int findPosition(Object item)
     {
@@ -153,7 +145,8 @@ public class HashTable
         while (table[index] != null && table[index].element != item)
         {
             i++;
-            index = (hashValue + (i^2))% table.length;
+            // LOSSY ERROR HERE WITH MODULUS
+            index = (hashValue + (int)Math.pow(i, 2)) % table.length;
 
         }
         return index;
@@ -217,7 +210,7 @@ public class HashTable
         return elemCount;
     }
 
-    //checks if colletion/table is empty or not
+    //checks if collection/table is empty or not
     public boolean isEmpty()
     {
         boolean empty = true;
@@ -232,12 +225,11 @@ public class HashTable
     }
 
     //clears contents of collection/table
-    /*public void makeEmpty()
+    public void makeEmpty()
     {
-
-
+        table = new HashEntry[table.length];
     }
-    */
+
 
     //prints table contents
     public void printTable()
@@ -248,9 +240,15 @@ public class HashTable
             {
                 System.out.println("[" + i + "]:   " + table[i].element + ", active");
             }
-            else
+            else if (!table[i].isActive)
+            {
                 System.out.println("[" + i + "]:   " + table[i].element + ", inactive");
-            //include an else if statement to show that it is empty
+            }
+            else if (table[i].element == null)
+            {
+                System.out.println("Empty");
+            }
+
         }
     }
 
