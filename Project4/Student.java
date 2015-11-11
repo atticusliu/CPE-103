@@ -33,8 +33,7 @@ public class Student
     //returns a string containing id and name of student
     public String toString()
     {
-        String ret = "{ id: " + id + ", name: " + lastName + " }";
-        return ret;
+        return "{ id: " + id + ", name: " + lastName + " }";
     }
 
     //returns the hash code of the key of this object

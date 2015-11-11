@@ -32,7 +32,7 @@ public class HTDriver
         int N = in.nextInt();
         int counter = 0;
         table = new HashTable(N);
-        while(counter < N)
+        while(counter <= N)
         {
             // rawRecord reads single line from inputted file
             String inputStu = in.nextLine();
@@ -87,7 +87,14 @@ public class HTDriver
                         System.out.print("Add student element: ");
                         String rawStudent = sc.nextLine();
                         if(isStudent(rawStudent))
+                        {
+                            String[] temp = new String[2];
+                            temp = rawStudent.split("\\s+");
+                            Student addStu = new Student(Long.parseLong(temp[0]), temp[1]);
+                            table.insert(addStu);
                             System.out.println("Student added.");
+                        }
+
                         else
                             System.out.println("Invalid record.");
                         break;
@@ -103,13 +110,11 @@ public class HTDriver
                             table.delete(stu);
                             System.out.println("Student " + longInputId + " deleted.");
                         }
-
                         else
                         {
                             System.out.println("Invalid ID.");
                             break;
                         }
-
                         break;
 
                     // FIND AN ELEMENT
@@ -166,9 +171,7 @@ public class HTDriver
                         break;
 
                     // OUTPUT ELEMENTS OF COLLECTION
-                    // lol this is probably super wrong
                     case 'o':
-                        // lol what even
                         Iterator iter = table.iterator();
                         while (iter.hasNext())
                         {

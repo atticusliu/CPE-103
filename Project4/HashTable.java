@@ -17,9 +17,9 @@ public class HashTable
     private class HashEntry
     {
         //stores the element of the collection
-        Object element;
+        public Object element;
         //represents if entry is active or not (true - active; false - inactive)
-        boolean isActive;
+        public boolean isActive;
 
         //constructor
         public HashEntry(Object item)
@@ -27,7 +27,6 @@ public class HashTable
             element = item;
             isActive = true;
         }
-
     }
 
     //data members
@@ -39,14 +38,14 @@ public class HashTable
     //constructor creates an empty hash table and takes one parameter that represents the number of elements in the collection
     public HashTable(int size)
     {
-        table = new HashEntry[nextPrime(2*size)];
+        table = new HashEntry[size];
         occupiedCells = 0;
     }
 
     //hash function
     private int hash(Object item)
     {
-        return  Math.abs(item.hashCode())% table.length;
+        return  Math.abs(item.hashCode()) % table.length;
     }
 
     //private Iter class that implements Iterator
@@ -56,6 +55,14 @@ public class HashTable
         public Iter()
         {
             cursor = 0;
+            for(int i = cursor; i < table.length; i++)
+            {
+                if(table[i].isActive)
+                {
+                    cursor = i;
+                    break;
+                }
+            }
         }
 
         public boolean hasNext()
@@ -67,6 +74,14 @@ public class HashTable
         {
             if(!hasNext())
                 throw new NoSuchElementException();
+            for(int i = cursor; i < table.length; i++)
+            {
+                if(table[i].isActive)
+                {
+                    cursor = i;
+                    break;
+                }
+            }
             return table[cursor++];
         }
 
@@ -75,7 +90,6 @@ public class HashTable
         {
             throw new UnsupportedOperationException();
         }
-
     }
 
     //create a method nextPrime that finds the next prime number
@@ -116,6 +130,7 @@ public class HashTable
         {
             //table[index].element = item;
             HashEntry newEntry = new HashEntry(item);
+            table[index] = newEntry;
             occupiedCells++;
             if (!(occupiedCells < (table.length/2)))
             {
@@ -142,12 +157,10 @@ public class HashTable
         //index identifies the cell to be probed
         int index = hashValue;
         //keep looking for the correct position where the item should be hashed to
-        while (table[index] != null && table[index].element != item)
+        while (table[index] != item && table[index] != null)
         {
             i++;
-            // LOSSY ERROR HERE WITH MODULUS
             index = (hashValue + (int)Math.pow(i, 2)) % table.length;
-
         }
         return index;
     }
@@ -160,22 +173,22 @@ public class HashTable
         temp = table;
         table = new HashEntry[nextPrime(2*temp.length)];
         occupiedCells = 0;
-        for (int i = 0; i <= temp.length; i++)
+        for (int i = 0; i < temp.length; i++)
         {
-            if (temp[i].element != null && temp[i].isActive)
+            if (temp[i] != null && temp[i].isActive)
             {
-                index = findPosition(temp[i].element);
-                table[index].element = temp[i].element;
+                index = findPosition(temp[i]);
+                table[index] = temp[i];
                 occupiedCells++;
             }
         }
-
     }
 
     //deletes specified item from table
     public void delete(Object item)
     {
         int index = findPosition(item);
+        System.out.println(index);
         if (table[index] != null && table[index].isActive)
         {
             table[index].isActive = false;
@@ -183,17 +196,18 @@ public class HashTable
     }
 
     //finds and retrieves given element
+
     public Object find(Object item)
     {
-        boolean answer;
+        Object answer;
         int index = findPosition(item);
         if (table[index] != null && table[index].isActive)
         {
-            answer = true;
+            answer = table[index];
         }
         else
         {
-            answer = false;
+            answer = null;
         }
         return answer;
     }
@@ -202,10 +216,13 @@ public class HashTable
     public int elementCount()
     {
         int elemCount = 0;
-        for (int i = 0; i<= table.length; i ++)
+        for (int i = 0; i < table.length; i ++)
         {
             if (table[i].isActive)
+            {
                 elemCount++;
+            }
+
         }
         return elemCount;
     }
@@ -214,7 +231,7 @@ public class HashTable
     public boolean isEmpty()
     {
         boolean empty = true;
-        for (int i = 0; i <= table.length; i++)
+        for (int i = 0; i < table.length; i++)
         {
             if (table[i].isActive) {
                 empty = false;
@@ -234,21 +251,20 @@ public class HashTable
     //prints table contents
     public void printTable()
     {
-        for (int i = 0; i <= table.length; i++)
+        for (int i = 0; i < table.length; i++)
         {
-            if (table[i].isActive)
+            if(table[i] == null)
             {
-                System.out.println("[" + i + "]:   " + table[i].element + ", active");
+                System.out.println("[" + i + "]: empty");
+            }
+            else if (table[i].isActive)
+            {
+                System.out.println("[" + i + "]: " + table[i].element + ", active");
             }
             else if (!table[i].isActive)
             {
-                System.out.println("[" + i + "]:   " + table[i].element + ", inactive");
+                System.out.println("[" + i + "]: " + table[i].element + ", inactive");
             }
-            else if (table[i].element == null)
-            {
-                System.out.println("Empty");
-            }
-
         }
     }
 
