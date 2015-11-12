@@ -73,17 +73,19 @@ public class HashTable
 
         public Object next()
         {
+            Object temp = table[cursor].element;
             if(!hasNext())
                 throw new NoSuchElementException();
+            cursor++;
             for(int i = cursor; i < table.length; i++)
             {
                 if(table[i] != null && table[i].isActive)
                 {
-                    cursor = i;
                     break;
                 }
+                cursor++;
             }
-            return table[cursor++].element;
+            return temp;
         }
 
         // public remove method for the pre-order traversal
