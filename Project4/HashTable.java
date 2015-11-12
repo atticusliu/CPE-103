@@ -9,7 +9,6 @@ import java.util.*;
  */
 
 import java.util.*;
-import java.util.NoSuchElementException;
 
 public class HashTable
 {
@@ -38,7 +37,7 @@ public class HashTable
     //constructor creates an empty hash table and takes one parameter that represents the number of elements in the collection
     public HashTable(int size)
     {
-        table = new HashEntry[size];
+        table = new HashEntry[nextPrime(2*size)];
         occupiedCells = 0;
     }
 
@@ -49,15 +48,17 @@ public class HashTable
     }
 
     //private Iter class that implements Iterator
-    private class Iter implements Iterator<Object>
+    private class Iter implements Iterator
     {
         int cursor;
         public Iter()
         {
             cursor = 0;
+
+            // find first active element
             for(int i = cursor; i < table.length; i++)
             {
-                if(table[i].isActive)
+                if(table[i] != null && table[i].isActive)
                 {
                     cursor = i;
                     break;
@@ -76,13 +77,13 @@ public class HashTable
                 throw new NoSuchElementException();
             for(int i = cursor; i < table.length; i++)
             {
-                if(table[i].isActive)
+                if(table[i] != null && table[i].isActive)
                 {
                     cursor = i;
                     break;
                 }
             }
-            return table[cursor++];
+            return table[cursor++].element;
         }
 
         // public remove method for the pre-order traversal
@@ -157,10 +158,10 @@ public class HashTable
         //index identifies the cell to be probed
         int index = hashValue;
         //keep looking for the correct position where the item should be hashed to
-        while (table[index] != item && table[index] != null)
+        while (table[index] != null && !(table[index].element.equals(item)))
         {
             i++;
-            index = (hashValue + (int)Math.pow(i, 2)) % table.length;
+            index = (hashValue + i * i) % table.length;
         }
         return index;
     }
@@ -188,7 +189,6 @@ public class HashTable
     public void delete(Object item)
     {
         int index = findPosition(item);
-        System.out.println(index);
         if (table[index] != null && table[index].isActive)
         {
             table[index].isActive = false;
@@ -216,9 +216,9 @@ public class HashTable
     public int elementCount()
     {
         int elemCount = 0;
-        for (int i = 0; i < table.length; i ++)
+        for (int i = 0; i < table.length; i++)
         {
-            if (table[i].isActive)
+            if (table[i] != null && table[i].isActive)
             {
                 elemCount++;
             }
@@ -233,7 +233,7 @@ public class HashTable
         boolean empty = true;
         for (int i = 0; i < table.length; i++)
         {
-            if (table[i].isActive) {
+            if (table[i] != null && table[i].isActive) {
                 empty = false;
                 break;
             }
@@ -269,7 +269,7 @@ public class HashTable
     }
 
     //creates an iter object for collection
-    public Iterator<Object> iterator()
+    public Iterator iterator()
     {
         return new Iter();
     }

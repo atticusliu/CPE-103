@@ -8,6 +8,7 @@
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UTFDataFormatException;
 import java.util.*;
 import java.io.*;
 
@@ -30,32 +31,14 @@ public class HTDriver
         }
 
         int N = in.nextInt();
+        in.nextLine();
         int counter = 0;
         table = new HashTable(N);
-        while(counter <= N)
+        while(counter < N)
         {
             // rawRecord reads single line from inputted file
             String inputStu = in.nextLine();
-            // create temporary recordArray of an arbitrary size
-            String[] recordArray = new String[10];
-            // split the rawRecord at white spaces, write to recordArray
-            recordArray = inputStu.split("\\s+");
-            // recordArray's length is used in if statement below
-            if(isLong(recordArray[0]) && recordArray.length == 2)
-            {
-                // create id of type long, instead of string
-                long id = Long.parseLong(recordArray[0]);
-                // create name of type string
-                String name = recordArray[1];
-                // if the id is valid, continue
-                if(id > 0)
-                {
-                    // create student object
-                    Student stu = new Student(id, name);
-                    // insert student object into heap
-                    table.insert(stu);
-                }
-            }
+            isStudent(table, inputStu);
             counter++;
         }
 
@@ -86,15 +69,10 @@ public class HTDriver
                     case 'a':
                         System.out.print("Add student element: ");
                         String rawStudent = sc.nextLine();
-                        if(isStudent(rawStudent))
+                        if(isStudent(table, rawStudent))
                         {
-                            String[] temp = new String[2];
-                            temp = rawStudent.split("\\s+");
-                            Student addStu = new Student(Long.parseLong(temp[0]), temp[1]);
-                            table.insert(addStu);
                             System.out.println("Student added.");
                         }
-
                         else
                             System.out.println("Invalid record.");
                         break;
@@ -120,18 +98,28 @@ public class HTDriver
                     // FIND AN ELEMENT
                     case 'f':
                         System.out.print("Insert number: ");
-                        inputId = sc.nextLine();
-                        if(isLong(inputId))
+                        //inputId = sc.nextLine();
+                        if(sc.hasNextLong())
                         {
-                            long longInputId = Long.parseLong(inputId);
-                            Student stu = new Student(longInputId, "Randomlastname");
-                            if(table.find(stu) != null)
+                            //long longInputId = Long.parseLong(inputId);
+                            long longId = sc.nextLong();
+                            sc.nextLine();
+                            if(longId > 0)
                             {
-                                System.out.println("Student with ID of " + longInputId + " found.");
+                                Student stu = new Student(longId, "Randomlastname");
+                                if(table.find(stu) != null)
+                                {
+                                    System.out.println("Student " + stu + " found.");
+                                }
+                                else
+                                {
+                                    System.out.println("Student " + longId + " not found.");
+                                }
                             }
                             else
                             {
-                                System.out.println("Student with ID of " + longInputId + " not found.");
+                                System.out.println("Invalid ID.");
+                                break;
                             }
                         }
                         else
@@ -209,7 +197,7 @@ public class HTDriver
         return true;
     }
 
-    private static boolean isStudent(String rawStudent)
+    private static boolean isStudent(HashTable table, String rawStudent)
     {
         boolean ret = false;
 
@@ -225,7 +213,11 @@ public class HTDriver
             String name = recordArray[1];
             // if the id is valid, continue
             if(id > 0)
+            {
+                Student addStu = new Student(Long.parseLong(recordArray[0]), recordArray[1]);
+                table.insert(addStu);
                 ret = true;
+            }
         }
         return ret;
     }
