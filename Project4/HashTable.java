@@ -1,5 +1,3 @@
-import java.util.*;
-
 /*
  * @authors: Salonee Thanawala, Atticus Liu
  * @usernames: sthanawala@calpoly.edu, aliu44@calpoly.edu
