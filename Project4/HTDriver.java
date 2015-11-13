@@ -12,33 +12,42 @@ import java.io.UTFDataFormatException;
 import java.util.*;
 import java.io.*;
 
+// class for the driver function of the project, contains main method and two helper functions
 public class HTDriver
 {
     public static void main(String[] args)
     {
+        // declare/initialize scanner object for user interaction
         Scanner sc = new Scanner(System.in);
+        // declare HashTable object
         HashTable table;
 
         System.out.println("What is the name of the input file?: ");
+        // inputFile holds file name inputted by user
         String inputFile = sc.next();
         sc.nextLine();
+        // declare another scanner object for stuff in filename
         Scanner in;
         try {
+            // initialize scanner object. If this doesn't work, program will quit (hence the return in the catch)
             in = new Scanner(new File(inputFile));
         } catch(FileNotFoundException ex) {
             System.out.println("Error processing file: " + ex);
             return;
         }
-
+        // N holds number of student objects in file
         int N = in.nextInt();
         in.nextLine();
         int counter = 0;
+        // initialize table object now we know we have a valid file
         table = new HashTable(N);
         while(counter < N)
         {
             // rawRecord reads single line from inputted file
             String inputStu = in.nextLine();
+            // check if this line holds a valid student object
             isStudent(table, inputStu);
+            // increment counter to further the while loop
             counter++;
         }
 
@@ -55,11 +64,12 @@ public class HTDriver
         System.out.println("    o - output the elements of the collection");
         System.out.println("    q - Quit the program");
 
-
+        // boolean variable to continuously prompt user for input
         boolean cond = true;
 
         while (cond) {
             System.out.print("Enter menu choice: ");
+            // choice holds user choice based on menu
             String choice = sc.nextLine();
 
             if (choice.length() == 1) {
@@ -68,6 +78,7 @@ public class HTDriver
                     // ADD AN ELEMENT
                     case 'a':
                         System.out.print("Add student element: ");
+                        // rawStudent string holds inputted student element
                         String rawStudent = sc.nextLine();
                         if(isStudent(table, rawStudent))
                         {
@@ -80,13 +91,17 @@ public class HTDriver
                     // DELETE AN ELEMENT
                     case 'd':
                         System.out.print("Insert number: ");
-                        String inputId = sc.nextLine();
-                        if(isLong(inputId))
+                        // if the user input is actually a long, go on
+                        if(sc.hasNextLong())
                         {
-                            long longInputId = Long.parseLong(inputId);
-                            Student stu = new Student(longInputId, "Randomlastname");
+                            // longId holds user input's long value
+                            long longId = sc.nextLong();
+                            sc.nextLine();
+                            // stu is a dummy Student object with an id of longInputId, and an
+                            // arbitrary last name
+                            Student stu = new Student(longId, "Deletesrandomlastname");
                             table.delete(stu);
-                            System.out.println("Student " + longInputId + " deleted.");
+                            System.out.println("Student " + longId + " deleted.");
                         }
                         else
                         {
@@ -98,15 +113,17 @@ public class HTDriver
                     // FIND AN ELEMENT
                     case 'f':
                         System.out.print("Insert number: ");
-                        //inputId = sc.nextLine();
+                        // if the user input is actually a long, go on
                         if(sc.hasNextLong())
                         {
-                            //long longInputId = Long.parseLong(inputId);
+                            // longId holds user input's long value
                             long longId = sc.nextLong();
                             sc.nextLine();
                             if(longId > 0)
                             {
-                                Student stu = new Student(longId, "Randomlastname");
+                                // stu is a dummy Student object with an id of longInputId, and an
+                                // arbitrary last name
+                                Student stu = new Student(longId, "Findsrandomlastname");
                                 if(table.find(stu) != null)
                                 {
                                     System.out.println("Student " + stu + " found.");
@@ -160,7 +177,9 @@ public class HTDriver
 
                     // OUTPUT ELEMENTS OF COLLECTION
                     case 'o':
+                        // create an Iterator object called iter
                         Iterator iter = table.iterator();
+                        // while there is still a next element, print the next element
                         while (iter.hasNext())
                         {
                             System.out.println(iter.next());
@@ -173,6 +192,7 @@ public class HTDriver
                         cond = false;
                         System.out.println("Farewell.");
                         break;
+                    // default case is to print "Invalid menu choice"
                     default:
                         System.out.println("Invalid menu choice.");
                 }
@@ -184,6 +204,7 @@ public class HTDriver
     }
 
     // private helper method that checks if a string is a long
+    // if it throws an exception, the string is not a long
     private static boolean isLong(String s)
     {
         try
@@ -197,8 +218,12 @@ public class HTDriver
         return true;
     }
 
+    // private helper method that checks if inputted string called rawStudent is a student
+    // if it is  avalid student, the it will be inserted into the table
     private static boolean isStudent(HashTable table, String rawStudent)
     {
+        // boolean value called ret is initially set to false, will be returned as true
+        // if the string that the student is in is actually a student object
         boolean ret = false;
 
         String[] recordArray = new String[10];
@@ -214,6 +239,8 @@ public class HTDriver
             // if the id is valid, continue
             if(id > 0)
             {
+                // create new student objected called addStu
+                // addStu will be added to table
                 Student addStu = new Student(Long.parseLong(recordArray[0]), recordArray[1]);
                 table.insert(addStu);
                 ret = true;

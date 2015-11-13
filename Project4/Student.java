@@ -39,6 +39,7 @@ public class Student
     //returns the hash code of the key of this object
     public int hashCode()
     {
+        // temp holds the value of id, use it to call on hashCode()
         Long temp = id;
         return temp.hashCode();
     }
