@@ -126,21 +126,17 @@ public class HTDriver
                                 Student stu = new Student(longId, "Findsrandomlastname");
                                 if(table.find(stu) != null)
                                 {
-                                    System.out.println("Student " + stu + " found.");
+                                    System.out.println("Student " + longId + " found.");
                                 }
                                 else
                                 {
                                     System.out.println("Student " + longId + " not found.");
                                 }
                             }
-                            else
-                            {
-                                System.out.println("Invalid ID.");
-                                break;
-                            }
                         }
                         else
                         {
+                            sc.nextLine();
                             System.out.println("Invalid ID.");
                             break;
                         }
