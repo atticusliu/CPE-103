@@ -59,7 +59,7 @@ public class Sorts {
     {
         T temp;
         int j;
-        for(int i = 1; i < size; i++)
+        for(int i = 0; i < size; i++)
         {
             // move arr[i] left to its proper position in the segment arr[0..i]
             // save arr[i] value
@@ -67,7 +67,7 @@ public class Sorts {
             // starting with the i position then moving to the left
             j = i;
             // while j is not the leftmost position and j-1 element is greater than temp
-            while(j != 1 && arr[j-1].compareTo(temp) > 0)
+            while(j != 0 && arr[j-1].compareTo(temp) > 0)
             {
                 arr[j] = arr[j-1];
                 j--;
@@ -145,6 +145,7 @@ public class Sorts {
         }
     }
 
+    // SOMETHING ABOUT THIS ISN'T QUITE WORKING, NOT SORTING ALL THE WAY THORUGHS
     public static <T extends Comparable<? super T>> void quickSort(T[] arr, int size)
     {
         quickSort(arr, 0, size-1);
@@ -188,7 +189,7 @@ public class Sorts {
         {
             temp = arr[center];
             arr[center] = arr[right];
-            arr[right] = arr[center];
+            arr[right] = temp;
         }
     }
 
@@ -204,9 +205,14 @@ public class Sorts {
         while(indexL <= indexR)
         {
             while(arr[indexL].compareTo(pivot) < 0)
+            {
                 indexL++;
-            while(left <= right && arr[indexR].compareTo(pivot) > 0)
+            }
+            while(indexL <= indexR && arr[indexR].compareTo(pivot) > 0)
+            {
                 indexR--;
+            }
+
             if(indexL <= indexR)
             {
                 // swap elements in indexL and indexR cells
@@ -217,11 +223,11 @@ public class Sorts {
                 indexL++;
                 indexR--;
             }
-            // swap elements in indexL and right
-            temp = arr[indexL];
-            arr[indexL] = arr[right];
-            arr[right] = temp;
         }
+        // swap elements in indexL and the pivot, arr[right]
+        temp = arr[indexL];
+        arr[indexL] = arr[right];
+        arr[right] = temp;
         return indexL;
     }
 }
