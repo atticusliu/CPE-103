@@ -63,6 +63,6 @@ public class SortTimes1
             System.out.println("N=" + N + ": T_ss=" + resultSS + ", T_bs=" + resultBS + ", T_is=" + resultIS + ", T_ms=" + resultMS + ", T_qs=" + resultQS);
             N = N * 2;
         }
-
+        System.out.println("END TEST1");
     }
 }

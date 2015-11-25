@@ -29,12 +29,13 @@ public class SortTimes3
             {
                 for (int j = 0; j < N; j++)
                 {
-                    array1[j] = r.nextInt(j);
-                    array2[j] = r.nextInt(j);
-                    array3[j] = r.nextInt(j);
-                    array4[j] = r.nextInt(j);
-                    array5[j] = r.nextInt(j);
+                    array1[j] = r.nextInt(N-1);
+                    array2[j] = r.nextInt(N-1);
+                    array3[j] = r.nextInt(N-1);
+                    array4[j] = r.nextInt(N-1);
+                    array5[j] = r.nextInt(N-1);
                 }
+
                 // SELECTION SORT
                 long startTimeSS = System.nanoTime();
                 Sorts.selectionSort(array1, N);
@@ -67,6 +68,7 @@ public class SortTimes3
 
                 System.out.println("N=" + N + ": T_ss=" + resultSS + ", T_bs=" + resultBS + ", T_is=" + resultIS + ", T_ms=" + resultMS + ", T_qs=" + resultQS);
             }
+            System.out.println();
             N = N * 2;
         }
         System.out.println("END TEST3");
