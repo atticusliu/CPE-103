@@ -6,12 +6,15 @@
  * Project 5
  */
 
+/* This file runs the Sorts methods on a REVERSE-sorted list of integers*/
+
 import java.util.*;
 
 public class SortTimes2
 {
     public static void main(String[] args)
     {
+        //5 arrays of 80,000 integer elements
         Integer[] array1 = new Integer[80000];
         Integer[] array2 = new Integer[80000];
         Integer[] array3 = new Integer[80000];
@@ -21,6 +24,7 @@ public class SortTimes2
         System.out.println("TEST2: reverse sorted list");
 
         int N = 5000;
+        //create 4 more copies of a reverse-sorted list
         while(N <= 80000)
         {
             for (int j = N - 1; j >= 0; j--)

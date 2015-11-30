@@ -6,21 +6,27 @@
  * Project 5
  */
 
+/*This file contains 5 sorting methods - 3 of which are O(N^2) routines and 2 of which are O(NlogN) routines */
+
 import java.util.*;
 
 public class Sorts {
 
+    //selection sort method
     public static <T extends Comparable<? super T>> void selectionSort(T[] arr, int size)
     {
         // minINdex is a variable to hold i in the for loop
         int minIndex;
         // temp is a variable to help with the swap
         T temp;
+        //go through list and find minimum value and swap it with list at position i
         for(int i = 0; i < size; i++)
         {
             minIndex = i;
+            //comparing with next element
             for (int j = i+1; j < size; j++)
             {
+                //if the element at j is less than the element at the minimum index then set the new minimum index to j
                 if (arr[j].compareTo(arr[minIndex]) < 0)
                 {
                     minIndex = j;
@@ -33,13 +39,18 @@ public class Sorts {
         }
     }
 
+    //bubble sort method
     public static <T extends Comparable<? super T>> void bubbleSort(T[] arr, int size)
     {
+        //this variable is used to determine if the list needs another pass
         boolean done = false;
+        //temp is a variable to help with the swap
         T temp;
         while(done == false)
         {
+            //put the "flag" (done) down - means the list has been looked at
             done = true;
+            //take every element and compare it to its right neighbor - one iteration compares each pair
             for(int i = 0; i < size-1; i++)
             {
                 if(arr[i].compareTo(arr[i+1]) > 0)
@@ -55,10 +66,14 @@ public class Sorts {
         }
     }
 
+    //insertion sort method
     public static <T extends Comparable<? super T>> void insertionSort(T[] arr, int size)
     {
+        //temp variable is to help with swap
         T temp;
+        //represents the index of where the number should be placed in the list
         int j;
+        //go through list and swap elements so that the elements arr[0,i] are sorted
         for(int i = 0; i < size; i++)
         {
             // move arr[i] left to its proper position in the segment arr[0..i]
@@ -77,26 +92,34 @@ public class Sorts {
         }
     }
 
+    //merge sort method - cut list into halves and sort each half separately then merge the two sorted halves into 1 sorted list
     public static <T extends Comparable<? super T>> void mergeSort(T[] arr, int size)
     {
         mergeSort(arr, 0, size-1);
     }
 
+    //recursion method that sorts each half
     private static <T extends Comparable<? super T>> void mergeSort(T[] arr, int first, int last)
     {
         int middle;
         // if there are more than one elements in list[first..last] segment
         if(first < last)
         {
+            //set middle to center position of the segment
             middle = (first + last) / 2;
+            //recursive call for first half
             mergeSort(arr, first, middle);
+            //recursive call for second half
             mergeSort(arr, middle+1, last);
+            //merge the two sorted halves
             mergeSortedHalves(arr, first, middle, last);
         }
     }
 
+    //merges the two sorted halves of the array segment arr[left,right]
     private static <T extends Comparable<? super T>> void mergeSortedHalves(T[] arr, int left, int middle, int right)
     {
+        //temp is a temporary array of length right-left+1
         T[] temp = (T[]) new Comparable[right-left+1];
         // index1 is left index
         int index1 = left;
@@ -145,7 +168,7 @@ public class Sorts {
         }
     }
 
-    // SOMETHING ABOUT THIS ISN'T QUITE WORKING, NOT SORTING ALL THE WAY THORUGHS
+    //quick sort method - select pivot and split list and then order them
     public static <T extends Comparable<? super T>> void quickSort(T[] arr, int size)
     {
         quickSort(arr, 0, size-1);
@@ -157,13 +180,19 @@ public class Sorts {
         // if there are more than one elements in list[first..last] segment
         if(first < last)
         {
+            //select a pivot and put it at the end
             setPivotToEnd(list, first, last);
+            //set the pivotIndex
             pivotIndex = splitList(list, first, last);
+            //recursive call to sort the first sublist
             quickSort(list, first, (pivotIndex-1));
+            //recursive call to sort the second sublist
             quickSort(list, (pivotIndex+1), last);
         }
     }
 
+    //this method chooses the pivot value and places it as the last element of the list
+    // guarantees that the pivot value is the last element in the array portion
     private static <T extends Comparable<? super T>> void setPivotToEnd(T[] arr, int left, int right)
     {
         // center index
@@ -193,10 +222,14 @@ public class Sorts {
         }
     }
 
+    //this method rearranges the elements of the list segment - pivot value is preceeded by smaller values and followed by greater values
     private static <T extends Comparable<? super T>> int splitList(T[] arr, int left, int right)
     {
+        //set to the first cell of the segment
         int indexL = left;
+        //set to the cell immediately before the pivot
         int indexR = right-1;
+        //set the pivot
         T pivot = arr[right];
         // temp is temporary variable to help with the swap
         T temp;

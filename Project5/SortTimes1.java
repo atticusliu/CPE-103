@@ -6,12 +6,14 @@
  * Project 5
  */
 
+/* This file runs the Sorts methods on a PRE-sorted list of integers*/
 import java.util.*;
 
 public class SortTimes1
 {
     public static void main(String[] args)
     {
+        //5 arrays of 80,000 integer elements
         Integer[] array1 = new Integer[80000];
         Integer[] array2 = new Integer[80000];
         Integer[] array3 = new Integer[80000];
@@ -20,6 +22,7 @@ public class SortTimes1
 
         System.out.println("TEST1: presorted list");
         int N = 5000;
+        //create 4 more copies of a pre-sorted list
         while(N <= 80000)
         {
             for(int j = 0; j < N; j++)
