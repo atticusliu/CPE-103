@@ -27,13 +27,13 @@ public class SortTimes2
         //create 4 more copies of a reverse-sorted list
         while(N <= 80000)
         {
-            for (int j = N - 1; j >= 0; j--)
+            for (int j =0; j < N; j++)
             {
-                array1[j] = j;
-                array2[j] = j;
-                array3[j] = j;
-                array4[j] = j;
-                array5[j] = j;
+                array1[j] = N-j;
+                array2[j] = N-j;
+                array3[j] = N-j;
+                array4[j] = N-j;
+                array5[j] = N-j;
             }
             // SELECTION SORT
             long startTimeSS = System.nanoTime();
