@@ -10,6 +10,7 @@
 
 import java.util.*;
 
+// public class to hold all five sorting algorithms, in addition to private helper functions
 public class Sorts {
 
     //selection sort method
