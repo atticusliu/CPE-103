@@ -21,7 +21,7 @@ public class Sorts {
         // temp is a variable to help with the swap
         T temp;
         //go through list and find minimum value and swap it with list at position i
-        for(int i = 0; i < size; i++)
+        for(int i = 0; i < size - 1; i++)
         {
             minIndex = i;
             //comparing with next element

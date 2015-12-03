@@ -35,37 +35,37 @@ public class LittleTester {
 
         }
 
-        Sorts.selectionSort(array1, 40000);
+        Sorts.selectionSort(array1, 40);
         System.out.println("SELECTION SORT");
-        for(int j = 0; j < 40000; j++)
+        for(int j = 0; j < 40; j++)
         {
             System.out.println(array1[j]);
         }
 
-        Sorts.bubbleSort(array2, 40000);
+        Sorts.bubbleSort(array2, 40);
         System.out.println("BUBBLE SORT");
-        for(int k = 0; k < 40000; k++)
+        for(int k = 0; k < 40; k++)
         {
             System.out.println(array2[k]);
         }
 
-        Sorts.insertionSort(array3, 40000);
+        Sorts.insertionSort(array3, 40);
         System.out.println("INSERTION SORT");
-        for(int a = 0; a < 40000; a++)
+        for(int a = 0; a < 40; a++)
         {
             System.out.println(array3[a]);
         }
 
-        Sorts.mergeSort(array4, 40000);
+        Sorts.mergeSort(array4, 40);
         System.out.println("MERGE SORT");
-        for(int b = 0; b < 40000; b++)
+        for(int b = 0; b < 40; b++)
         {
             System.out.println(array4[b]);
         }
 
-        Sorts.quickSort(array5, 40000);
+        Sorts.quickSort(array5, 40);
         System.out.println("QUICK SORT");
-        for(int c = 0; c < 40000; c++)
+        for(int c = 0; c < 40; c++)
         {
             System.out.println(array5[c]);
         }
