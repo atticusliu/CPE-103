@@ -75,7 +75,7 @@ public class Sorts {
         //represents the index of where the number should be placed in the list
         int j;
         //go through list and swap elements so that the elements arr[0,i] are sorted
-        for(int i = 0; i < size; i++)
+        for(int i = 1; i < size; i++)
         {
             // move arr[i] left to its proper position in the segment arr[0..i]
             // save arr[i] value
